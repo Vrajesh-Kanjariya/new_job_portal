@@ -7,12 +7,23 @@ class StringConstant {
   static const String passwordRegexp =
       r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{0,}$";
 
+
+  static const String refresh = 'Refresh';
+  static const String noInternet = 'Oops, NO Internet Connection';
+  static const String noInternetMsg =
+      'Make Sure wifi or cellular data is turned on and then try again.';
+
+  //     ======================= Welcome Screen =======================     //
+  static const String findJobs = 'Find jobs';
+  static const String getStarted = 'Get Started';
+  static const String alreadyAccount = 'Already have an account!';
+  static const String signIn = 'Sign in';
+
   //     ======================= Login Screen =======================     //
   static const String welcome = 'Welcome';
   static const String signInText = 'Sign in and get started';
   static const String email = 'Email';
   static const String password = 'Password';
-  static const String signIn = 'Sign In';
   static const String signUp = 'Sign Up';
   static const String forgotPassword = 'Forgot Password';
   static const String enterEmail = 'Enter email';
@@ -20,6 +31,11 @@ class StringConstant {
   static const String enterName = 'Enter name';
   static const String enterPhone = 'Enter phone';
   static const String enterCPassword = 'Enter confirm password';
+  static const String welcomeBack = 'Welcome Back';
+  static const String enterBelowDetails = 'Enter your details below';
+  static const String dontAccount = 'Don\'t have an account?';
+  static const String getStartedFree = 'Get started free.';
+  static const String validEmail = 'Please enter valid email id.';
 
   //     ======================= Login Screen =======================     //
   static const String newbies = 'New Account';
@@ -29,7 +45,7 @@ class StringConstant {
   static const String confirmPassword = 'Confirm password';
 
   //     ======================= Password Screen =======================     //
-  static const String forgotPass = 'Forgot password';
+  static const String forgotPass = 'Forgot your password?';
   static const String forgotPassText = 'Get link and reset password';
   static const String resetPass = 'Reset password';
   static const String resetPassText = 'Verify and update password';

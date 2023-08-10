@@ -1,382 +1,245 @@
-// ignore_for_file: unnecessary_null_comparison, use_build_context_synchronously
+import 'dart:convert';
+import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
-import '../constant/color_constant.dart';
-import '../utils/shared_preference.dart';
-import '../widgets/app_logs.dart';
+import '../../services/connectivity_service.dart';
+import '../../utils/shared_preference.dart';
+import '../../utils/utils.dart';
+import '../utils/global.dart';
 
 class RestConstants {
-  /// Define all endpoints and base url(s) here
-  /// DO NOT USE STATIC STRING ANYWHERE IN "rest_api" call.
+  RestConstants._privateConstructor();
 
-  static const baseUrl = 'https://yojob.in/api';
-  static const register = 'doRegister';
-  static const login = 'doLogin';
-  static const changePassword = 'changepassword';
-  static const password = 'getPassword';
-  static const getAllCandidate = 'getAllCandidate';
-  static const getCandidateById = 'getCandidateById';
-  static const getAllRecruiter = 'getAllRecruiter';
-  static const getRecruiterById = 'getRecruiterById';
-  static const getAboutUs = 'getAboutUs';
-  static const changeEmail = 'changeEmail';
-  static const changePhone = 'changePhone';
-  static const updateCandidateProfile = 'updateCandidateProfile';
-  static const updateCandidateOtherInfo = 'updateCandidateOtherInfo';
-  static const country = 'getCountry';
-  static const state = 'getState';
-  static const city = 'getCity';
-  static const uploadResume = 'uploadResume';
-  static const getAllSkill = 'getAllSkill';
-  static const getAllQualification = 'getAllQualification';
-  static const getAllExperience = 'getAllExperience';
-  static const getAllIndustries = 'getAllIndustries';
-  static const getSkillByIndustries = 'getSkillByIndustries';
-  static const postJobs = 'postJobs';
-  static const postJobsUpdate = 'postJobsUpdate';
-  static const getPostJobs = 'getPostJobs';
-  static const removePostJob = 'removePostJobs';
-  static const addTicket = 'addTicket';
-  static const getTicket = 'getTicket';
-  static const getAppliedJob = 'getAppliedJob';
-  static const getAllJobs = 'getAllJobs';
-  static const favouriteJobs = 'saveJob';
-  static const applyJobs = 'applyJob';
-  static const getAppliedJobs = 'getAppliedJob';
-  static const removeApplyJobs = 'removeAppliedJob';
-  static const updateRecruiterProfile = 'updateRecruiterProfile';
+  static final RestConstants instance = RestConstants._privateConstructor();
+
+  //     ======================= Tokens & Others =======================     //
+  String razorPayKey = '';
+
+  //     ======================= Baseurl =======================     //
+  String apiBaseUrl = 'https://nishantthummar.in/extra_web/job_portal_2023';
+
+  //     ======================= API EndPoints =======================     //
+  final String login = 'login';
+
 }
 
 class RestServices {
-  Map<String, String> headers = {'content-type': 'application/json'};
+  RestServices._privateConstructor();
 
-  void showRequestLogs(Uri url, {Map<String, String>? headers}) {
-    logs('<----------------- Requested server data Logs ----------------->');
-    logs('Requested url --> $url');
-    logs('Header --> $headers');
-    logs('<----------------- Requested server data Logs ----------------->');
+  static final RestServices instance = RestServices._privateConstructor();
+
+  Map<String, String> headers = {'Content-Type': 'application/json'};
+
+  Future<Map<String, String>> getHeaders() async {
+    String? token = await getPrefStringValue(accessTokenKey);
+    return {
+      'deviceId': await getPrefStringValue(deviceIdKey) ?? 'deviceId',
+      'macAddress': await getPrefStringValue(macAddressKey) ?? 'macAddress',
+      'deviceName': await getPrefStringValue(deviceNameKey) ?? 'deviceName',
+      'imeiNo': await getPrefStringValue(imeiNumberKey) ?? 'imeiNo',
+      'accessStatus': Global.getAccessStatus(),
+      'language': await getPrefStringValue(languageKey) ?? 'guj',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      if (token != null) 'Authorization': 'Bearer $token',
+    };
   }
 
-  void showResponseLogs({@required Response? response}) {
-    logs('<----------------- Requested server data Logs ----------------->');
-    logs('Response --> ${response!.statusCode} : ${response.request!.url}');
-    logs('RHeader --> ${response.request!.headers}');
+  void showRequestAndResponseLogs(http.Response? response, Map<String, Object> requestData) {
+    logs('•••••••••• Network logs ••••••••••');
+    logs('Request url --> ${response!.request!.url}');
+    log('Request headers --> $requestData');
+    logs('Status code --> ${response.statusCode}');
+    logs('Response headers --> ${response.headers}');
     logs('Response body --> ${response.body}');
-    logs('<----------------- Requested server data Logs ----------------->');
+    logs('••••••••••••••••••••••••••••••••••');
   }
 
-  dynamic getRestCall(BuildContext context,
-      {@required String? endpoint}) async {
+  Future<String?>? getRestCall({required String? endpoint, String? addOns}) async {
     String? responseData;
-    try {
-      String requestUrl = '${RestConstants.baseUrl}/$endpoint';
-      Uri? requestedUri = Uri.tryParse(requestUrl);
-      showRequestLogs(requestedUri!);
-
-      String? userToken = await getPrefStringValue(token);
-      headers['Authorization'] = userToken!;
-      Response response = await http.get(requestedUri, headers: headers);
-
-      if (response != null) {
-        showResponseLogs(response: response);
-      }
-
-      switch (response.statusCode) {
-        case 200:
-        case 201:
-          responseData = response.body;
-          break;
-        case 500:
-        case 400:
-        case 404:
-          logs('${response.statusCode}');
-          showMessage(
-            context,
-            message: '${response.statusCode} : Something went wrong.',
-            backgroundColor: ColorConstant.red,
-            textColor: ColorConstant.themeScaffold,
-          );
-          break;
-        case 401:
-          showMessage(
-            context,
-            message:
-                '${response.statusCode} : Something went wrong with authorization.',
-            backgroundColor: ColorConstant.red,
-            textColor: ColorConstant.themeScaffold,
-          );
-          logs('401 : ${response.body}');
-          break;
-        default:
-          logs('${response.statusCode} : ${response.body}');
-          break;
-      }
-    } on PlatformException catch (e) {
-      logs('PlatformException in Get --> ${e.message}');
-      showMessage(
-        context,
-        message: e.message,
-        backgroundColor: ColorConstant.red,
-        textColor: ColorConstant.themeScaffold,
-      );
+    bool connected = await ConnectivityService.instance.isConnectNetworkWithMessage();
+    if (!connected) {
+      return responseData;
     }
-    return responseData;
-  }
-
-  dynamic postRestCall(BuildContext context,
-      {@required String? endpoint,
-      @required Map<String, dynamic>? body,
-      String? addOns}) async {
-    logs('Body --> $body');
-    String? responseData;
     try {
       String requestUrl = addOns != null
-          ? '${RestConstants.baseUrl}/$endpoint/$addOns'
-          : '${RestConstants.baseUrl}/$endpoint';
+          ? '${RestConstants.instance.apiBaseUrl}/$endpoint$addOns'
+          : '${RestConstants.instance.apiBaseUrl}/$endpoint';
       Uri? requestedUri = Uri.tryParse(requestUrl);
-      showRequestLogs(requestedUri!);
-      Map<String, String> headers = {};
-      String? userToken = await getPrefStringValue(token);
-      if (userToken != null) {
-        headers['Authorization'] = userToken;
-      }
-      Response response = await http.post(
-        requestedUri,
-        body: body,
-        headers: headers,
-      );
+      Map<String, String> headers = await getHeaders();
+      Response response = await http.get(requestedUri!, headers: headers);
 
-      if (response != null) {
-        showResponseLogs(response: response);
-      }
+      showRequestAndResponseLogs(response, headers);
 
       switch (response.statusCode) {
         case 200:
         case 201:
-          responseData = response.body;
-          break;
-        case 500:
         case 400:
+          Map<String, dynamic> responseMap = jsonDecode(response.body);
+          if (responseMap.containsKey('status') && responseMap['status'] == 1) {
+            responseData = response.body;
+          } else {
+            errorToast('${responseMap['msg']}');
+            responseData = null;
+          }
+          break;
         case 404:
+        case 500:
+        case 502:
           logs('${response.statusCode}');
-          showMessage(
-            context,
-            message: '${response.statusCode} : Something went wrong.',
-            backgroundColor: ColorConstant.red,
-            textColor: ColorConstant.themeScaffold,
-          );
           break;
         case 401:
-          showMessage(
-            context,
-            message:
-                '${response.statusCode} : Something went wrong with authorization.',
-            backgroundColor: ColorConstant.red,
-            textColor: ColorConstant.themeScaffold,
-          );
           logs('401 : ${response.body}');
+          manageExpiredToken(response.body);
           break;
         default:
           logs('${response.statusCode} : ${response.body}');
           break;
       }
     } on PlatformException catch (e) {
-      logs('PlatformException in Post --> ${e.message}');
-      showMessage(
-        context,
-        message: e.message,
-        backgroundColor: ColorConstant.red,
-        textColor: ColorConstant.themeScaffold,
-      );
+      logs('PlatformException in getRestCall --> ${e.message}');
     }
     return responseData;
   }
 
-  dynamic multiPartRestCall(
-    BuildContext context, {
-    @required String? endpoint,
-    @required Map<String, String>? body,
-    @required String? keyName,
-    @required String? fileName,
+  Future<String?>? postRestCall(
+      {required String? endpoint,
+      required Map<String, dynamic>? body,
+      String? addOns,
+      String? stringBody,
+      bool isShowMessage = true}) async {
+    String? responseData;
+    bool connected = await ConnectivityService.instance.isConnectNetworkWithMessage();
+    if (!connected) {
+      return responseData;
+    }
+
+    try {
+      String requestUrl = addOns != null
+          ? '${RestConstants.instance.apiBaseUrl}/$endpoint$addOns'
+          : '${RestConstants.instance.apiBaseUrl}/$endpoint';
+      Uri? requestedUri = Uri.tryParse(requestUrl);
+      logs('Body map --> $body');
+      Map<String, String> headers = await getHeaders();
+
+      Response response =
+          await http.post(requestedUri!, body: stringBody ?? jsonEncode(body), headers: headers);
+      showRequestAndResponseLogs(response, headers);
+      switch (response.statusCode) {
+        case 200:
+        case 201:
+        Map<String, dynamic> responseMap = jsonDecode(response.body);
+
+          if (responseMap['status'] == null || responseMap.containsKey('status') && responseMap['status'] == 1) {
+            responseData = response.body;
+          } else {
+            if (!isShowMessage) return responseData;
+            errorToast('${responseMap['msg']}');
+            responseData = null;
+          }
+          break;
+        case 400:
+        case 404:
+        case 500:
+        case 502:
+          logs('${response.statusCode}${response.headers}');
+          break;
+        case 401:
+          logs('401 : ${response.body}');
+          manageExpiredToken(response.body);
+          break;
+        default:
+          logs('${response.statusCode} : ${response.body}');
+          break;
+      }
+    } on PlatformException catch (e) {
+      logs('PlatformException in postRestCall --> ${e.message}');
+    }
+    return responseData;
+  }
+
+  Future<String?>? multiPartRestCall({
+    required String? endpoint,
+    required Map<String, String>? body,
+    required String keyName,
+    required String fileName,
+    String? keyName1,
+    String? fileName1,
   }) async {
     String? responseData;
+    bool connected = await ConnectivityService.instance.isConnectNetworkWithMessage();
+    if (!connected) {
+      return responseData;
+    }
     try {
-      String requestUrl = '${RestConstants.baseUrl}/$endpoint';
+      String requestUrl = '${RestConstants.instance.apiBaseUrl}/$endpoint';
       Uri? requestedUri = Uri.tryParse(requestUrl);
-      showRequestLogs(requestedUri!);
-
-      Map<String, String> headers = {
-        'Content-Type': 'multipart/form-data',
-      };
-
-      String? userToken = await getPrefStringValue(token);
-      headers['Authorization'] = userToken!;
-      MultipartRequest request = http.MultipartRequest('POST', requestedUri);
-      request.fields.addAll(body!);
-      request.headers.addAll(headers);
-      if (fileName!.isNotEmpty) {
-        request.files
-            .add(await http.MultipartFile.fromPath(keyName!, fileName));
+      MultipartRequest request = http.MultipartRequest('POST', requestedUri!);
+      Map<String, String> header = await getHeaders();
+      header.remove('Content-Type');
+      header['Content-Type'] = 'multipart/form-data';
+      // request.headers.addAll({'Content-Type':'multipart/form-data'});
+      request.headers.addAll(header);
+      if (body!.isNotEmpty) {
+        request.fields.addAll(body);
+      }
+      if(keyName.isNotEmpty && fileName.isNotEmpty) {
+        request.files.add(await http.MultipartFile.fromPath(
+          keyName,
+          fileName,
+          // contentType: MediaType.parse('image/jpeg'),
+        ));
+      }
+      if (keyName1 != null && fileName1 != null) {
+        request.files.add(await http.MultipartFile.fromPath(
+          keyName1,
+          fileName1,
+          // contentType: MediaType.parse('image/jpeg'),
+        ));
       }
       StreamedResponse responseStream = await request.send();
       final response = await http.Response.fromStream(responseStream);
-      if (response != null) {
-        showResponseLogs(response: response);
-      }
+      logs("response $response");
 
-      logs('sc : ${response.statusCode}');
+      showRequestAndResponseLogs(response, request.headers);
+      logs("request.headers ${request.headers}");
+
       switch (response.statusCode) {
         case 200:
         case 201:
-          responseData = response.body;
+          Map<String, dynamic> responseMap = jsonDecode(response.body);
+          if (responseMap.containsKey('status') && responseMap['status'] == 1) {
+            responseData = response.body;
+          } else {
+            errorToast('${responseMap['msg']}');
+            responseData = null;
+          }
           break;
         case 500:
+        case 502:
         case 400:
         case 404:
           logs('${response.statusCode}');
           break;
         case 401:
           logs('401 : ${response.body}');
+          manageExpiredToken(response.body);
           break;
         default:
           logs('${response.statusCode} : ${response.body}');
           break;
       }
     } on PlatformException catch (e) {
-      logs('PlatformException in Post --> ${e.message}');
-      showMessage(
-        context,
-        message: e.message,
-        backgroundColor: ColorConstant.red,
-        textColor: ColorConstant.themeScaffold,
-      );
+      logs('PlatformException in multiPartRestCall --> ${e.message}');
     }
     return responseData;
   }
 
-  dynamic deleteRestCall(BuildContext context,
-      {@required String? endpoint,
-      @required Map<String, dynamic>? body,
-      String? addOns}) async {
-    String? responseData;
-    try {
-      String requestUrl = addOns != null
-          ? '${RestConstants.baseUrl}/$endpoint/$addOns'
-          : '${RestConstants.baseUrl}/$endpoint';
-      Uri? requestedUri = Uri.tryParse(requestUrl);
-      showRequestLogs(requestedUri!);
-
-      Response response =
-          await http.delete(requestedUri, headers: headers, body: body);
-
-      if (response != null) {
-        showResponseLogs(response: response);
-      }
-
-      switch (response.statusCode) {
-        case 200:
-        case 201:
-          responseData = response.body;
-          break;
-        case 500:
-        case 400:
-        case 404:
-          logs('${response.statusCode}');
-          showMessage(
-            context,
-            message: '${response.statusCode} : Something went wrong.',
-            backgroundColor: ColorConstant.red,
-            textColor: ColorConstant.themeScaffold,
-          );
-          break;
-        case 401:
-          showMessage(
-            context,
-            message:
-                '${response.statusCode} : Something went wrong with authorization.',
-            backgroundColor: ColorConstant.red,
-            textColor: ColorConstant.themeScaffold,
-          );
-          logs('401 : ${response.body}');
-          break;
-        default:
-          logs('${response.statusCode} : ${response.body}');
-          break;
-      }
-    } on PlatformException catch (e) {
-      logs('PlatformException in Delete --> ${e.message}');
-      showMessage(
-        context,
-        message: e.message,
-        backgroundColor: ColorConstant.red,
-        textColor: ColorConstant.themeScaffold,
-      );
-    }
-    return responseData;
-  }
-
-  dynamic patchRestCall(BuildContext context,
-      {@required String? endpoint,
-      @required Map<String, dynamic>? body,
-      String? addOns}) async {
-    String? responseData;
-    try {
-      String requestUrl = addOns != null
-          ? '${RestConstants.baseUrl}/$endpoint/$addOns'
-          : '${RestConstants.baseUrl}/$endpoint';
-      Uri? requestedUri = Uri.tryParse(requestUrl);
-      showRequestLogs(requestedUri!);
-
-      Response response =
-          await http.patch(requestedUri, headers: headers, body: body);
-
-      if (response != null) {
-        showResponseLogs(response: response);
-      }
-
-      switch (response.statusCode) {
-        case 200:
-        case 201:
-          responseData = response.body;
-          break;
-        case 500:
-        case 400:
-        case 404:
-          logs('${response.statusCode}');
-          showMessage(
-            context,
-            message: '${response.statusCode} : Something went wrong.',
-            backgroundColor: ColorConstant.red,
-            textColor: ColorConstant.themeScaffold,
-          );
-          break;
-        case 401:
-          showMessage(
-            context,
-            message:
-                '${response.statusCode} : Something went wrong with authorization.',
-            backgroundColor: ColorConstant.red,
-            textColor: ColorConstant.themeScaffold,
-          );
-          logs('401 : ${response.body}');
-          break;
-        default:
-          logs('${response.statusCode} : ${response.body}');
-          break;
-      }
-    } on PlatformException catch (e) {
-      logs('PlatformException in patch --> ${e.message}');
-      showMessage(
-        context,
-        message: e.message,
-        backgroundColor: ColorConstant.red,
-        textColor: ColorConstant.themeScaffold,
-      );
-    }
-    return responseData;
+  void manageExpiredToken(String body) {
+    Map<String, dynamic> responseMap = jsonDecode(body);
+    if (responseMap['message'].toString().toLowerCase().contains('token')) {}
   }
 }

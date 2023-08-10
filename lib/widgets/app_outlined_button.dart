@@ -38,7 +38,7 @@ class AppOutlinedButton extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: margin),
       width: width,
       decoration: BoxDecoration(
-        border: Border.all(color: ColorConstant.buttonBlue, width: 1.6),
+        border: Border.all(color: ColorConstant.blue, width: 1.6),
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: ElevatedButton(

@@ -19,9 +19,9 @@ class AppElevatedButton extends StatelessWidget {
     Key? key,
     this.height,
     this.width = double.infinity,
-    this.margin = 30,
-    this.fontSize = 20,
-    this.borderRadius = 50,
+    this.margin = 0.0,
+    this.fontSize = 14,
+    this.borderRadius = 12,
     this.text,
     this.fontColor = ColorConstant.white,
     this.onPressed,
@@ -36,13 +36,14 @@ class AppElevatedButton extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: margin),
       width: width,
       decoration: BoxDecoration(
+        // color: ColorConstant.primary,
         borderRadius: BorderRadius.circular(borderRadius),
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
           colors: [
-            ColorConstant.blue.withOpacity(0.8),
-            ColorConstant.buttonBlue,
+            ColorConstant.blue,
+            ColorConstant.purple,
           ],
         ),
       ),
@@ -58,7 +59,7 @@ class AppElevatedButton extends StatelessWidget {
           shadowColor: MaterialStateProperty.all(ColorConstant.transparent),
         ),
         child: AppText(
-          text: text,
+          text: text!,
           fontSize: fontSize,
           fontColor: fontColor,
           fontWeight: fontWeight,

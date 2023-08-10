@@ -1,11 +1,29 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String isLoggedIn = 'isLoggedIn';
-const String logInType = 'logInType';
-const String userId = 'userId';
-const String token = 'token';
+const String toolTipsKEY = 'toolTipsKEY';
+const String isUserLoginKey = 'isUserLogin';
+const String fcmTokenKey = 'fcmToken';
+const String registerIdKey = 'registerId';
+const String accessTokenKey = 'accessToken';
+const String deviceIdKey = 'deviceId';
+const String deviceNameKey = 'deviceName';
+const String macAddressKey = 'macAddress';
+const String imeiNumberKey = 'imeiNumber';
+const String memberIdKey = 'memberId';
+const String languageKey = 'language';
+const String profileStatusKey = 'profileStatus';
+const String addMemberStatusKey = 'addMemberStatus';
+const String userSelectedStatusKey = 'userSelectedStatus';
+const String mobileNoKey = 'mobileNo';
+const String textColorsKey = 'textColors';
+const String textSizesKey = 'textSizes';
+const String lineSaveHeightKey = 'lineSaveHeight';
+const String namavaliTextColorsKey = 'namavaliTextColors';
+const String namavaliTextSizesKey = 'namavaliTextSizes';
+const String namavaliLineSaveHeightKey = 'namavaliLineSaveHeight';
+const String mantrajapCountKey = 'mantraJapCount';
 
-checkPrefKey(String key) async {
+Future<bool> checkPrefKey(String key) async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.containsKey(key);
 }
@@ -20,9 +38,9 @@ setPrefStringValue(String key, String value) async {
   prefs.setString(key, value);
 }
 
-Future<bool?>? getPrefBoolValue(String key) async {
+Future<bool> getPrefBoolValue(String key) async {
   final prefs = await SharedPreferences.getInstance();
-  return prefs.getBool(key);
+  return prefs.getBool(key) ?? false;
 }
 
 setPrefBoolValue(String key, bool value) async {
@@ -68,4 +86,9 @@ Future<Set<String>> getPrefKeys() async {
 removePrefValue(String key) async {
   final prefs = await SharedPreferences.getInstance();
   prefs.remove(key);
+}
+
+removePref() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.clear();
 }

@@ -20,7 +20,7 @@ class AppText extends StatelessWidget {
     @required this.text,
     this.fontSize,
     this.fontWeight,
-    this.fontColor = ColorConstant.white,
+    this.fontColor = ColorConstant.black,
     this.textAlign,
     this.overflow = TextOverflow.ellipsis,
     this.maxLines = 1,

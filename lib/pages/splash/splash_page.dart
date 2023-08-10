@@ -1,15 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
-class SplashPage extends StatefulWidget {
+import '../../constant/color_constant.dart';
+import '../../constant/string_constant.dart';
+import '../../controller/splash_controller.dart';
+import '../../widgets/app_text.dart';
+
+class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
   @override
-  State<SplashPage> createState() => _SplashPageState();
-}
-
-class _SplashPageState extends State<SplashPage> {
-  @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return GetBuilder<SplashController>(
+      init: SplashController(),
+      builder: (controller) {
+        controller.timer();
+        return Scaffold(
+          body: Center(
+            child: AppText(
+              text: StringConstant.appTitle,
+              fontColor: ColorConstant.primary,
+              fontSize: 26.px,
+            ),
+          ),
+        );
+      },
+    );
   }
 }
