@@ -61,8 +61,6 @@ class SignUpController extends GetxController {
           phoneController.clear();
           passwordController.clear();
           cPasswordController.clear();
-        } else {
-          responseMap['message'].toString().showError();
         }
       }
     } on SocketException catch (e) {

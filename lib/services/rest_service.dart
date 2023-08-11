@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:new_job_portal/utils/string_extensions.dart';
 
 import '../../services/connectivity_service.dart';
 import '../../utils/shared_preference.dart';
@@ -116,14 +117,13 @@ class RestServices {
       switch (response.statusCode) {
         case 200:
         case 201:
-          logs("response body ==> ${response.body}");
           Map<String, dynamic> responseMap = jsonDecode(response.body);
-
-          if (responseMap['status'] == null || responseMap.containsKey('status') && responseMap['status'] == true) {
-            responseData = response.body;
-          } else {
-            errorToast('${responseMap['msg']}');
-            responseData = null;
+          if (responseMap.isNotEmpty) {
+            if (responseMap.containsKey('status') && responseMap['status'] == true) {
+              responseData = response.body;
+            } else {
+              responseMap['message'].toString().showError();
+            }
           }
           break;
         case 400:
