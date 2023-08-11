@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
             title: StringConstant.appTitle,
             navigatorKey: Get.key,
             debugShowCheckedModeBanner: false,
-            initialRoute: RouteHelper.getSplashRoute(),
+            initialRoute: RouteHelper.getHomeRoute(),
             navigatorObservers: [BotToastNavigatorObserver()],
             getPages: RouteHelper.routes,
             theme: AppTheme.themeData,

@@ -19,6 +19,10 @@ class ImageConstant {
   static const email = '${iconPath}email.png';
   static const expandArrow = '${iconPath}expand_arrow.png';
   static const password = '${iconPath}password.png';
+  static const home = '${iconPath}home.png';
+  static const user = '${iconPath}user.png';
+  static const save = '${iconPath}save.png';
+  static const search = '${iconPath}search.png';
 
 
   //     ======================= Animations =======================     //

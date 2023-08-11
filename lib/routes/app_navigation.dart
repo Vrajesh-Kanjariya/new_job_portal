@@ -26,3 +26,22 @@ gotoSignUp(){
   Get.offNamed(RouteHelper.getSignUpRoute());
 }
 
+gotoDashboard(){
+  Get.offAllNamed(RouteHelper.getDashboardRoute());
+}
+
+gotoHome(){
+  Get.toNamed(RouteHelper.getHomeRoute());
+}
+
+gotoFilter(){
+  Get.toNamed(RouteHelper.getFilterRoute());
+}
+
+gotoFavourite(){
+  Get.toNamed(RouteHelper.getFilterRoute());
+}
+
+gotoProfile(){
+  Get.toNamed(RouteHelper.getProfileRoute());
+}

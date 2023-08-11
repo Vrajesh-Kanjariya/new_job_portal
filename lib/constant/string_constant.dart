@@ -44,6 +44,13 @@ class StringConstant {
   static const String phone = 'Phone';
   static const String confirmPassword = 'Confirm password';
 
+  //     ======================= Home Screen =======================     //
+  static const String home = 'Home';
+  static const String profile = 'Profile';
+  static const String favourite = 'Favourite';
+  static const String filter = 'Filter';
+
+
   //     ======================= Password Screen =======================     //
   static const String forgotPass = 'Forgot your password?';
   static const String forgotPassText = 'Get link and reset password';
@@ -68,7 +75,6 @@ class StringConstant {
   static const String personalInfo = 'Do not sell my personal information';
 
   //    ======================= Profile Screen =======================   //
-  static const String profile = 'Profile';
   static const String yourProfile = 'Your location';
   static const String resume = 'Resume';
   static const String yourResume = 'Your Resume';
