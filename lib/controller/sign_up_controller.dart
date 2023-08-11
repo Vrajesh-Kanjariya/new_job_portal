@@ -37,6 +37,8 @@ class SignUpController extends GetxController {
 
   Future<void> registerUser() async {
     try {
+      isLoading = true;
+      update();
       final Map<String, dynamic> bodyMap = {
         'name': nameController.text,
         'email': emailController.text,
@@ -54,6 +56,11 @@ class SignUpController extends GetxController {
           SharedPrefService.instance.setPrefBoolValue(SharedPrefService.instance.isAuthenticateUser, true);
           SharedPrefService.instance.setPrefStringValue(SharedPrefService.instance.authenticationToken, responseMap['token']);
           responseMap['message'].toString().showSuccess();
+          nameController.clear();
+          emailController.clear();
+          phoneController.clear();
+          passwordController.clear();
+          cPasswordController.clear();
         } else {
           responseMap['message'].toString().showError();
         }
@@ -61,6 +68,8 @@ class SignUpController extends GetxController {
     } on SocketException catch (e) {
       logs('Catch exception in registerUser --> ${e.message}');
     }
+    isLoading = false;
+    update();
   }
 
   void validateRegisterUser() {
@@ -80,7 +89,7 @@ class SignUpController extends GetxController {
     }
     if (ValidationUtils.validateEmptyController(phoneController)) {
       phoneError = 'Please enter phone number';
-    } else if (!ValidationUtils.lengthValidator(phoneController, 10)) {
+    } else if (ValidationUtils.lengthValidator(phoneController, 10)) {
       phoneError = 'Please enter valid phone number';
     } else {
       phoneError = '';
@@ -104,7 +113,7 @@ class SignUpController extends GetxController {
       confirmPasswordError = '';
     }
     update();
-    if (kDebugMode ||nameError.isEmpty && emailError.isEmpty && phoneError.isEmpty && passwordError.isEmpty && confirmPasswordError.isEmpty) {
+    if (nameError.isEmpty && emailError.isEmpty && phoneError.isEmpty && passwordError.isEmpty && confirmPasswordError.isEmpty) {
       registerUser();
     }
   }

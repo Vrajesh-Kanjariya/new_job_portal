@@ -46,7 +46,7 @@ class RestServices {
   void showRequestAndResponseLogs(http.Response? response, Map<String, Object> requestData) {
     logs('•••••••••• Network logs ••••••••••');
     logs('Request url --> ${response!.request!.url}');
-    log('Request headers --> $requestData');
+    logs('Request headers --> $requestData');
     logs('Status code --> ${response.statusCode}');
     logs('Response headers --> ${response.headers}');
     logs('Response body --> ${response.body}');
