@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:new_job_portal/utils/utils.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../constant/color_constant.dart';
@@ -19,13 +20,10 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    logs('Current screen --> $runtimeType');
     return GetBuilder<SignInController>(
       init: SignInController(),
-      builder: (SignInController controller) {
-        return Scaffold(
-          body: _signInBody(context, controller),
-        );
-      },
+      builder: (SignInController controller) => Scaffold(body: _signInBody(context, controller)),
     );
   }
 
@@ -38,10 +36,7 @@ class SignInPage extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
-              colors: [
-                ColorConstant.blue,
-                ColorConstant.lightBlueWhite,
-              ],
+              colors: [ColorConstant.blue, ColorConstant.lightBlueWhite],
             ),
           ),
           child: Column(
@@ -57,10 +52,11 @@ class SignInPage extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.all(8.px),
                           child: AppImageAsset(
-                              image: ImageConstant.backIcon,
-                              height: 20.px,
-                              width: 20.px,
-                              color: ColorConstant.appWhite),
+                            image: ImageConstant.backIcon,
+                            height: 20.px,
+                            width: 20.px,
+                            color: ColorConstant.appWhite,
+                          ),
                         ),
                       ),
                       const Spacer(),
@@ -70,17 +66,13 @@ class SignInPage extends StatelessWidget {
                         fontSize: 12.px,
                         fontWeight: FontWeight.w300,
                       ),
-                      SizedBox(
-                        width: 10.px,
-                      ),
+                      SizedBox(width: 10.px),
                       GestureDetector(
                         onTap: () => gotoSignUp(),
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 10.px, vertical: 8.px),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.px),
-                            color: ColorConstant.lightBlue,
-                          ),
+                          decoration:
+                              BoxDecoration(borderRadius: BorderRadius.circular(8.px), color: ColorConstant.lightBlue),
                           child: AppText(
                             text: StringConstant.getStarted,
                             fontColor: ColorConstant.appWhite,
@@ -89,9 +81,7 @@ class SignInPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 10.px,
-                      ),
+                      SizedBox(width: 10.px),
                     ],
                   ),
                 ),
@@ -119,6 +109,7 @@ class SignInPage extends StatelessWidget {
                   margin: EdgeInsets.symmetric(horizontal: 20.px),
                   height: MediaQuery.of(context).size.height * 0.012,
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(25.px), topRight: Radius.circular(25.px)),
                     gradient: const LinearGradient(
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
@@ -126,10 +117,6 @@ class SignInPage extends StatelessWidget {
                         ColorConstant.lightBlue,
                         ColorConstant.lightBlue,
                       ],
-                    ),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25.px),
-                      topRight: Radius.circular(25.px),
                     ),
                   ),
                 ),
@@ -222,9 +209,7 @@ class SignInPage extends StatelessWidget {
                         onTap: () => controller.checkValidation(),
                         child: AppElevatedButton(height: 50.px, text: StringConstant.signIn, margin: 20.px),
                       ),
-                      SizedBox(
-                        height: 20.px,
-                      ),
+                      SizedBox(height: 20.px),
                       GestureDetector(
                         onTap: () {},
                         child: Align(

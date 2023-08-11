@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:new_job_portal/utils/utils.dart';
 import 'package:new_job_portal/widgets/app_loader.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -19,17 +20,14 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    logs('Current screen --> $runtimeType');
     return GetBuilder<SignUpController>(
       init: SignUpController(),
-      builder: (SignUpController controller) {
-        return Scaffold(
-          body: _signUpBody(context, controller),
-        );
-      },
+      builder: (SignUpController controller) => Scaffold(body: signUpBody(context, controller)),
     );
   }
 
-  _signUpBody(BuildContext context, SignUpController controller) {
+  Stack signUpBody(BuildContext context, SignUpController controller) {
     return Stack(
       children: [
         Container(
@@ -37,10 +35,7 @@ class SignUpPage extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
-              colors: [
-                ColorConstant.blue,
-                ColorConstant.lightBlueWhite,
-              ],
+              colors: [ColorConstant.blue, ColorConstant.lightBlueWhite],
             ),
           ),
           child: Column(
@@ -56,10 +51,11 @@ class SignUpPage extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.all(8.px),
                           child: AppImageAsset(
-                              image: ImageConstant.backIcon,
-                              height: 20.px,
-                              width: 20.px,
-                              color: ColorConstant.appWhite),
+                            image: ImageConstant.backIcon,
+                            height: 20.px,
+                            width: 20.px,
+                            color: ColorConstant.appWhite,
+                          ),
                         ),
                       ),
                       const Spacer(),
@@ -69,9 +65,7 @@ class SignUpPage extends StatelessWidget {
                         fontSize: 12.px,
                         fontWeight: FontWeight.w300,
                       ),
-                      SizedBox(
-                        width: 10.px,
-                      ),
+                      SizedBox(width: 10.px),
                       GestureDetector(
                         onTap: () => gotoSignIn(),
                         child: Container(
@@ -88,9 +82,7 @@ class SignUpPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 10.px,
-                      ),
+                      SizedBox(width: 10.px),
                     ],
                   ),
                 ),

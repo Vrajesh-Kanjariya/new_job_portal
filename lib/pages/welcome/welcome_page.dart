@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:new_job_portal/routes/app_navigation.dart';
+import 'package:new_job_portal/utils/utils.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../constant/color_constant.dart';
@@ -20,13 +21,12 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    logs('Current screen --> $runtimeType');
     return GetBuilder<WelcomeController>(
       init: WelcomeController(),
       builder: (WelcomeController controller) {
         return Scaffold(
-          appBar: AppBar(
-            toolbarHeight: 0.0,
-          ),
+          appBar: AppBar(toolbarHeight: 0.0),
           body: SizedBox(
             width: Device.width,
             height: Device.height,
@@ -34,13 +34,7 @@ class WelcomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(child: Container()),
-                const Expanded(
-                  child: Center(
-                    child: AppImageAsset(
-                      image: ImageConstant.loginTwo,
-                    ),
-                  ),
-                ),
+                const Expanded(child: Center(child: AppImageAsset(image: ImageConstant.loginTwo))),
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24.px),
@@ -48,18 +42,11 @@ class WelcomePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        AppText(
-                          text: StringConstant.findJobs,
-                          fontSize: 26.px,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        AppText(text: StringConstant.findJobs, fontSize: 26.px, fontWeight: FontWeight.w600),
                         SizedBox(height: 20.px),
                         GestureDetector(
                           onTap: () => gotoSignUp(),
-                          child: AppElevatedButton(
-                            height: 50.px,
-                            text: StringConstant.getStarted,
-                          ),
+                          child: AppElevatedButton(height: 50.px, text: StringConstant.getStarted),
                         ),
                         const Spacer(),
                       ],
@@ -73,5 +60,4 @@ class WelcomePage extends StatelessWidget {
       },
     );
   }
-
 }
