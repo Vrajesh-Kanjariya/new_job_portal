@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:new_job_portal/constant/color_constant.dart';
+import 'package:new_job_portal/utils/utils.dart';
 import 'package:new_job_portal/widgets/app_logs.dart';
 import 'package:url_launcher/url_launcher.dart';
 

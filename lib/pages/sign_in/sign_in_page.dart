@@ -137,18 +137,13 @@ class SignInPage extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.688,
                   decoration: BoxDecoration(
                     color: ColorConstant.appWhite,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.px),
-                      topRight: Radius.circular(20.px),
-                    ),
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(20.px), topRight: Radius.circular(20.px)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(
-                        height: 40.px,
-                      ),
+                      SizedBox(height: 40.px),
                       Align(
                         alignment: Alignment.center,
                         child: AppText(
@@ -158,9 +153,7 @@ class SignInPage extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      SizedBox(
-                        height: 8.px,
-                      ),
+                      SizedBox(height: 8.px),
                       Align(
                         alignment: Alignment.center,
                         child: AppText(
@@ -170,9 +163,7 @@ class SignInPage extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      SizedBox(
-                        height: 8.px,
-                      ),
+                      SizedBox(height: 8.px),
                       Padding(
                         padding: EdgeInsets.only(top: 6.px, left: 20.px, right: 20.px),
                         child: AppTextFormField(
@@ -190,16 +181,10 @@ class SignInPage extends StatelessWidget {
                             LengthLimitingTextInputFormatter(50),
                           ],
                           keyboardType: TextInputType.emailAddress,
+                          errorText: controller.emailError,
                         ),
                       ),
-                      if (controller.emailError.isNotEmpty)
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.px),
-                          child: ErrorText(errorText: controller.emailError),
-                        ),
-                      SizedBox(
-                        height: 16.px,
-                      ),
+                      SizedBox(height: 16.px),
                       Padding(
                         padding: EdgeInsets.only(top: 6.px, left: 20.px, right: 20.px),
                         child: AppTextFormField(
@@ -227,35 +212,15 @@ class SignInPage extends StatelessWidget {
                             ),
                           ),
                           fontColor: ColorConstant.black,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(15),
-                            // FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))
-                          ],
+                          inputFormatters: [LengthLimitingTextInputFormatter(15)],
                           keyboardType: TextInputType.text,
+                          errorText: controller.passwordError,
                         ),
                       ),
-                      if (controller.passwordError.isNotEmpty)
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.px),
-                          child: ErrorText(errorText: controller.passwordError),
-                        ),
-                      SizedBox(
-                        height: 16.px,
-                      ),
-                      SizedBox(
-                        height: 20.px,
-                      ),
+                      SizedBox(height: 36.px),
                       InkWell(
-                        onTap: () {
-                          controller.checkValidation();
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.px),
-                          child: AppElevatedButton(
-                            height: 50.px,
-                            text: StringConstant.signIn,
-                          ),
-                        ),
+                        onTap: () => controller.checkValidation(),
+                        child: AppElevatedButton(height: 50.px, text: StringConstant.signIn, margin: 20.px),
                       ),
                       SizedBox(
                         height: 20.px,
