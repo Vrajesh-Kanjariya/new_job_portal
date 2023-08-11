@@ -15,7 +15,6 @@ const String countryCode = '91';
 
 
 void logs(String message) {
-  // log(message);
   if (kDebugMode) {
     print(message);
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:new_job_portal/utils/utils.dart';
+import 'package:new_job_portal/widgets/app_loader.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../constant/color_constant.dart';
@@ -18,17 +20,14 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    logs('Current screen --> $runtimeType');
     return GetBuilder<SignUpController>(
       init: SignUpController(),
-      builder: (SignUpController controller) {
-        return Scaffold(
-          body: _signUpBody(context, controller),
-        );
-      },
+      builder: (SignUpController controller) => Scaffold(body: signUpBody(context, controller)),
     );
   }
 
-  _signUpBody(BuildContext context, SignUpController controller) {
+  Stack signUpBody(BuildContext context, SignUpController controller) {
     return Stack(
       children: [
         Container(
@@ -36,10 +35,7 @@ class SignUpPage extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
-              colors: [
-                ColorConstant.blue,
-                ColorConstant.lightBlueWhite,
-              ],
+              colors: [ColorConstant.blue, ColorConstant.lightBlueWhite],
             ),
           ),
           child: Column(
@@ -55,22 +51,21 @@ class SignUpPage extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.all(8.px),
                           child: AppImageAsset(
-                              image: ImageConstant.backIcon,
-                              height: 20.px,
-                              width: 20.px,
-                              color: ColorConstant.white),
+                            image: ImageConstant.backIcon,
+                            height: 20.px,
+                            width: 20.px,
+                            color: ColorConstant.appWhite,
+                          ),
                         ),
                       ),
                       const Spacer(),
                       AppText(
                         text: StringConstant.alreadyAccount,
-                        fontColor: ColorConstant.white,
+                        fontColor: ColorConstant.appWhite,
                         fontSize: 12.px,
                         fontWeight: FontWeight.w300,
                       ),
-                      SizedBox(
-                        width: 10.px,
-                      ),
+                      SizedBox(width: 10.px),
                       GestureDetector(
                         onTap: () => gotoSignIn(),
                         child: Container(
@@ -81,15 +76,13 @@ class SignUpPage extends StatelessWidget {
                           ),
                           child: AppText(
                             text: StringConstant.signIn,
-                            fontColor: ColorConstant.white,
+                            fontColor: ColorConstant.appWhite,
                             fontSize: 12.px,
                             fontWeight: FontWeight.w300,
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 10.px,
-                      ),
+                      SizedBox(width: 10.px),
                     ],
                   ),
                 ),
@@ -99,7 +92,7 @@ class SignUpPage extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.16,
                 child: AppText(
                   text: StringConstant.appTitle,
-                  fontColor: ColorConstant.white,
+                  fontColor: ColorConstant.appWhite,
                   fontWeight: FontWeight.w600,
                   fontSize: 30.px,
                 ),
@@ -109,218 +102,228 @@ class SignUpPage extends StatelessWidget {
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.7,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20.px),
-                  height: MediaQuery.of(context).size.height * 0.012,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        ColorConstant.lightBlue,
-                        ColorConstant.lightBlue,
-                      ],
-                    ),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25.px),
-                      topRight: Radius.circular(25.px),
-                    ),
-                  ),
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.688,
-                  decoration: BoxDecoration(
-                    color: ColorConstant.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.px),
-                      topRight: Radius.circular(20.px),
+          child: SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20.px),
+                    height: MediaQuery.of(context).size.height * 0.012,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          ColorConstant.lightBlue,
+                          ColorConstant.lightBlue,
+                        ],
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25.px),
+                        topRight: Radius.circular(25.px),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.688,
+                    decoration: BoxDecoration(
+                      color: ColorConstant.appWhite,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.px),
+                        topRight: Radius.circular(20.px),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
         Align(
           alignment: Alignment.bottomCenter,
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.7,
-            child: Stack(
+            height: MediaQuery.of(context).size.height * 0.688,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.688,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SizedBox(
-                          height: 40.px,
+                SizedBox(height: 40.px),
+                Align(
+                  alignment: Alignment.center,
+                  child: AppText(
+                    text: StringConstant.getStartedFree,
+                    fontSize: 26.px,
+                    fontWeight: FontWeight.w600,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(height: 8.px),
+                Align(
+                  alignment: Alignment.center,
+                  child: AppText(
+                    text: StringConstant.enterBelowDetails,
+                    fontSize: 14.px,
+                    fontColor: ColorConstant.textGrey,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(height: 8.px),
+                Expanded(
+                  child: ListView(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 6.px, left: 20.px, right: 20.px, bottom: 16.px),
+                        child: AppTextFormField(
+                          textAlign: TextAlign.start,
+                          controller: controller.nameController,
+                          hint: StringConstant.enterName,
+                          fontSize: 15.px,
+                          fillColor: ColorConstant.appWhite,
+                          borderColor: ColorConstant.grey,
+                          borderWidth: 2.px,
+                          autoFocus: false,
+                          hintFontSize: 14.px,
+                          fontColor: ColorConstant.black,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(15),
+                            FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))
+                          ],
+                          keyboardType: TextInputType.text,
+                          errorText: controller.nameError,
                         ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: AppText(
-                            text: StringConstant.getStartedFree,
-                            fontSize: 26.px,
-                            fontWeight: FontWeight.w600,
-                            textAlign: TextAlign.center,
-                          ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 6.px, left: 20.px, right: 20.px, bottom: 16.px),
+                        child: AppTextFormField(
+                          textAlign: TextAlign.start,
+                          controller: controller.phoneController,
+                          hint: StringConstant.enterPhoneNumber,
+                          fontSize: 15.px,
+                          fillColor: ColorConstant.appWhite,
+                          borderColor: ColorConstant.grey,
+                          borderWidth: 2.px,
+                          autoFocus: false,
+                          hintFontSize: 14.px,
+                          fontColor: ColorConstant.black,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(10),
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          keyboardType: TextInputType.text,
+                          errorText: controller.phoneError,
                         ),
-                        SizedBox(
-                          height: 8.px,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 6.px, left: 20.px, right: 20.px, bottom: 16.px),
+                        child: AppTextFormField(
+                          textAlign: TextAlign.start,
+                          controller: controller.emailController,
+                          hint: StringConstant.enterEmail,
+                          fontSize: 15.px,
+                          fillColor: ColorConstant.appWhite,
+                          borderColor: ColorConstant.grey,
+                          borderWidth: 2.px,
+                          autoFocus: false,
+                          hintFontSize: 14.px,
+                          fontColor: ColorConstant.black,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(15),
+                          ],
+                          keyboardType: TextInputType.text,
+                          errorText: controller.emailError,
                         ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: AppText(
-                            text: StringConstant.enterBelowDetails,
-                            fontSize: 14.px,
-                            fontColor: ColorConstant.textGrey,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 8.px,
-                        ),
-                        Padding(
-                          padding:
-                          EdgeInsets.only(top: 6.px, left: 20.px, right: 20.px, bottom: 16.px),
-                          child: AppTextFormField(
-                            textAlign: TextAlign.start,
-                            controller: controller.nameController,
-                            hint: StringConstant.enterName,
-                            fontSize: 15.px,
-                            fillColor: ColorConstant.white,
-                            borderColor: ColorConstant.grey,
-                            borderWidth: 2.px,
-                            autoFocus: false,
-                            hintFontSize: 14.px,
-                            fontColor: ColorConstant.black,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(15),
-                              FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))
-                            ],
-                            keyboardType: TextInputType.text,
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                          EdgeInsets.only(top: 6.px, left: 20.px, right: 20.px, bottom: 16.px),
-                          child: AppTextFormField(
-                            textAlign: TextAlign.start,
-                            controller: controller.emailController,
-                            hint: StringConstant.enterEmail,
-                            fontSize: 15.px,
-                            fillColor: ColorConstant.white,
-                            borderColor: ColorConstant.grey,
-                            borderWidth: 2.px,
-                            autoFocus: false,
-                            hintFontSize: 14.px,
-                            fontColor: ColorConstant.black,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(15),
-                              FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))
-                            ],
-                            keyboardType: TextInputType.text,
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                          EdgeInsets.only(top: 6.px, left: 20.px, right: 20.px, bottom: 16.px),
-                          child: AppTextFormField(
-                            textAlign: TextAlign.start,
-                            controller: controller.passwordController,
-                            hint: StringConstant.enterPassword,
-                            fontSize: 15.px,
-                            fillColor: ColorConstant.white,
-                            borderColor: ColorConstant.grey,
-                            borderWidth: 2.px,
-                            autoFocus: false,
-                            isObscureText: controller.isPasswordVisible,
-                            hintFontSize: 14.px,
-                            suffixIcon: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16.px),
-                              child: GestureDetector(
-                                onTap: () => controller.passwordHideShow(),
-                                child: Icon(
-                                  controller.isPasswordVisible
-                                      ? Icons.visibility_outlined
-                                      : Icons.visibility_off_outlined,
-                                  size: 25.px,
-                                  color: ColorConstant.grey,
-                                ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 6.px, left: 20.px, right: 20.px, bottom: 16.px),
+                        child: AppTextFormField(
+                          textAlign: TextAlign.start,
+                          controller: controller.passwordController,
+                          hint: StringConstant.enterPassword,
+                          fontSize: 15.px,
+                          fillColor: ColorConstant.appWhite,
+                          borderColor: ColorConstant.grey,
+                          borderWidth: 2.px,
+                          autoFocus: false,
+                          isObscureText: controller.isPasswordVisible,
+                          hintFontSize: 14.px,
+                          suffixIcon: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16.px),
+                            child: GestureDetector(
+                              onTap: () => controller.passwordHideShow(),
+                              child: Icon(
+                                controller.isPasswordVisible
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                                size: 25.px,
+                                color: ColorConstant.grey,
                               ),
                             ),
-                            fontColor: ColorConstant.black,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(15),
-                              FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))
-                            ],
-                            keyboardType: TextInputType.text,
                           ),
+                          fontColor: ColorConstant.black,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(15),
+                          ],
+                          keyboardType: TextInputType.text,
+                          errorText: controller.passwordError,
                         ),
-                        Padding(
-                          padding:
-                          EdgeInsets.only(top: 6.px, left: 20.px, right: 20.px, bottom: 16.px),
-                          child: AppTextFormField(
-                            textAlign: TextAlign.start,
-                            controller: controller.cPasswordController,
-                            hint: StringConstant.enterCPassword,
-                            fontSize: 15.px,
-                            fillColor: ColorConstant.white,
-                            borderColor: ColorConstant.grey,
-                            borderWidth: 2.px,
-                            autoFocus: false,
-                            isObscureText: controller.isCPasswordVisible,
-                            hintFontSize: 14.px,
-                            suffixIcon: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16.px),
-                              child: GestureDetector(
-                                onTap: () => controller.cPasswordHideShow(),
-                                child: Icon(
-                                  controller.isCPasswordVisible
-                                      ? Icons.visibility_outlined
-                                      : Icons.visibility_off_outlined,
-                                  size: 25.px,
-                                  color: ColorConstant.grey,
-                                ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 6.px, left: 20.px, right: 20.px, bottom: 16.px),
+                        child: AppTextFormField(
+                          textAlign: TextAlign.start,
+                          controller: controller.cPasswordController,
+                          hint: StringConstant.enterCPassword,
+                          fontSize: 15.px,
+                          fillColor: ColorConstant.appWhite,
+                          borderColor: ColorConstant.grey,
+                          borderWidth: 2.px,
+                          autoFocus: false,
+                          isObscureText: controller.isCPasswordVisible,
+                          hintFontSize: 14.px,
+                          suffixIcon: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16.px),
+                            child: GestureDetector(
+                              onTap: () => controller.cPasswordHideShow(),
+                              child: Icon(
+                                controller.isCPasswordVisible
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                                size: 25.px,
+                                color: ColorConstant.grey,
                               ),
                             ),
-                            fontColor: ColorConstant.black,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(15),
-                              FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))
-                            ],
-                            keyboardType: TextInputType.text,
+                          ),
+                          fontColor: ColorConstant.black,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(15),
+                          ],
+                          keyboardType: TextInputType.text,
+                          errorText: controller.confirmPasswordError,
+                        ),
+                      ),
+                      SizedBox(height: 20.px),
+                      GestureDetector(
+                        onTap: () => controller.validateRegisterUser(),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.px),
+                          child: AppElevatedButton(
+                            height: 50.px,
+                            text: StringConstant.signUp,
                           ),
                         ),
-                        SizedBox(
-                          height: 20.px,
-                        ),
-                        GestureDetector(
-                          onTap: () => gotoSignUp(),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.px),
-                            child: AppElevatedButton(
-                              height: 50.px,
-                              text: StringConstant.signUp,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20.px,
-                        ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(height: 20.px),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
         ),
+        controller.isLoading ? AppLoader() : SizedBox(),
       ],
     );
   }

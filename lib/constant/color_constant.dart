@@ -13,7 +13,7 @@ class ColorConstant {
   static const Color hintColor = Color(0xFFAAAAB8);
   static const Color darkGreen = Color(0xFF005C7A);
   static const Color red = Color(0XFFFF0000);
-  static const Color white = Color(0xFFFFFFFF);
+  static const Color appWhite = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
   static const Color dropShadow = Color(0XFFB5B5B5);
   static const Color grey = Color(0XFF9E9E9E);
