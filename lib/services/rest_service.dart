@@ -19,7 +19,7 @@ class RestConstants {
   String razorPayKey = '';
 
   //     ======================= Baseurl =======================     //
-  String apiBaseUrl = 'https://nishantthummar.in/extra_web/job_portal_2023';
+  String apiBaseUrl = 'https://nishantthummar.in/extra_web/job_portal_2023/api';
 
   //     ======================= API EndPoints =======================     //
   final String login = 'login';
@@ -36,14 +36,9 @@ class RestServices {
   Future<Map<String, String>> getHeaders() async {
     String? token = await getPrefStringValue(accessTokenKey);
     return {
-      'deviceId': await getPrefStringValue(deviceIdKey) ?? 'deviceId',
-      'macAddress': await getPrefStringValue(macAddressKey) ?? 'macAddress',
-      'deviceName': await getPrefStringValue(deviceNameKey) ?? 'deviceName',
-      'imeiNo': await getPrefStringValue(imeiNumberKey) ?? 'imeiNo',
-      'accessStatus': Global.getAccessStatus(),
-      'language': await getPrefStringValue(languageKey) ?? 'guj',
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      // 'accessStatus': Global.getAccessStatus(),
+      // 'Content-Type': 'application/json',
+      // 'Accept': 'application/json',
       if (token != null) 'Authorization': 'Bearer $token',
     };
   }
@@ -79,7 +74,7 @@ class RestServices {
         case 201:
         case 400:
           Map<String, dynamic> responseMap = jsonDecode(response.body);
-          if (responseMap.containsKey('status') && responseMap['status'] == 1) {
+          if (responseMap.containsKey('status') && responseMap['status'] == true) {
             responseData = response.body;
           } else {
             errorToast('${responseMap['msg']}');
@@ -108,9 +103,7 @@ class RestServices {
   Future<String?>? postRestCall(
       {required String? endpoint,
       required Map<String, dynamic>? body,
-      String? addOns,
-      String? stringBody,
-      bool isShowMessage = true}) async {
+      }) async {
     String? responseData;
     bool connected = await ConnectivityService.instance.isConnectNetworkWithMessage();
     if (!connected) {
@@ -118,25 +111,23 @@ class RestServices {
     }
 
     try {
-      String requestUrl = addOns != null
-          ? '${RestConstants.instance.apiBaseUrl}/$endpoint$addOns'
-          : '${RestConstants.instance.apiBaseUrl}/$endpoint';
+      String requestUrl = '${RestConstants.instance.apiBaseUrl}/$endpoint';
       Uri? requestedUri = Uri.tryParse(requestUrl);
       logs('Body map --> $body');
       Map<String, String> headers = await getHeaders();
 
       Response response =
-          await http.post(requestedUri!, body: stringBody ?? jsonEncode(body), headers: headers);
+          await http.post(requestedUri!, body: body, headers: headers);
       showRequestAndResponseLogs(response, headers);
       switch (response.statusCode) {
         case 200:
         case 201:
+          logs("response body ==> ${response.body}");
         Map<String, dynamic> responseMap = jsonDecode(response.body);
 
-          if (responseMap['status'] == null || responseMap.containsKey('status') && responseMap['status'] == 1) {
+          if (responseMap['status'] == null || responseMap.containsKey('status') && responseMap['status'] == true) {
             responseData = response.body;
           } else {
-            if (!isShowMessage) return responseData;
             errorToast('${responseMap['msg']}');
             responseData = null;
           }
@@ -166,8 +157,6 @@ class RestServices {
     required Map<String, String>? body,
     required String keyName,
     required String fileName,
-    String? keyName1,
-    String? fileName1,
   }) async {
     String? responseData;
     bool connected = await ConnectivityService.instance.isConnectNetworkWithMessage();
@@ -183,9 +172,11 @@ class RestServices {
       header['Content-Type'] = 'multipart/form-data';
       // request.headers.addAll({'Content-Type':'multipart/form-data'});
       request.headers.addAll(header);
+
       if (body!.isNotEmpty) {
         request.fields.addAll(body);
       }
+
       if(keyName.isNotEmpty && fileName.isNotEmpty) {
         request.files.add(await http.MultipartFile.fromPath(
           keyName,
@@ -193,13 +184,7 @@ class RestServices {
           // contentType: MediaType.parse('image/jpeg'),
         ));
       }
-      if (keyName1 != null && fileName1 != null) {
-        request.files.add(await http.MultipartFile.fromPath(
-          keyName1,
-          fileName1,
-          // contentType: MediaType.parse('image/jpeg'),
-        ));
-      }
+
       StreamedResponse responseStream = await request.send();
       final response = await http.Response.fromStream(responseStream);
       logs("response $response");
@@ -211,7 +196,7 @@ class RestServices {
         case 200:
         case 201:
           Map<String, dynamic> responseMap = jsonDecode(response.body);
-          if (responseMap.containsKey('status') && responseMap['status'] == 1) {
+          if (responseMap.containsKey('status') && responseMap['status'] == true) {
             responseData = response.body;
           } else {
             errorToast('${responseMap['msg']}');
