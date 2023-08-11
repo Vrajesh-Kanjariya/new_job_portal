@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../constant/color_constant.dart';
 
 class AppLoader extends StatelessWidget {
@@ -10,10 +10,7 @@ class AppLoader extends StatelessWidget {
     return Center(
       child: Container(
         color: ColorConstant.themeScaffold.withOpacity(0.8),
-        // child: const SpinKitCircle(
-        //   color: ColorConstant.darkBlue,
-        //   size: 42,
-        // ),
+        child: const SpinKitCircle(color: ColorConstant.darkBlue, size: 42),
       ),
     );
   }

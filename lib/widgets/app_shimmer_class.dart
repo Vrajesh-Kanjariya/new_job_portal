@@ -17,7 +17,7 @@ class ShimmerEffectView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
       baseColor: ColorConstant.black.withOpacity(0.2),
-      highlightColor: ColorConstant.white,
+      highlightColor: ColorConstant.appWhite,
       child: Container(
         height: height ?? 30.px,
         width: width ?? 50.px,

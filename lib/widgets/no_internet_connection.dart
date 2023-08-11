@@ -17,7 +17,7 @@ class NoInternetConnection extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: ColorConstant.white,
+        backgroundColor: ColorConstant.appWhite,
         bottomNavigationBar: GestureDetector(
           onTap: () async {
             bool isConnect = await ConnectivityService.instance.isConnectNetworkWithMessage();

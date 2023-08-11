@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:new_job_portal/widgets/app_text.dart';
 import 'package:new_job_portal/widgets/app_theme.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -40,6 +41,7 @@ class AppTextFormField extends StatelessWidget {
   final double cursorWidth;
   final double borderWidth;
   final double? iconWidth;
+  final String errorText;
 
   const AppTextFormField({
     Key? key,
@@ -78,113 +80,126 @@ class AppTextFormField extends StatelessWidget {
     this.hintColor = ColorConstant.textGrey,
     this.borderWidth = 0,
     this.iconWidth,
+    this.errorText = '',
   }) : super(key: key);
   final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 6.px,vertical: 4.px),
-      decoration: BoxDecoration(
-        border: Border.all(color: ColorConstant.border, width: 2.px),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: TextFormField(
-        onFieldSubmitted: onSubmitted,
-        onTap: onTap,
-        focusNode: focusNode,
-        onChanged: onChanged,
-        readOnly: readOnly,
-        controller: controller,
-        obscureText: isObscureText,
-        textInputAction: textInputAction,
-        keyboardType: keyboardType,
-        cursorColor: cursorColor,
-        cursorHeight: cursorHeight,
-        cursorWidth: cursorWidth,
-        textAlign: textAlign,
-        inputFormatters: inputFormatters,
-        autofocus: autoFocus,
-        style: Theme.of(context)
-            .textTheme
-            .headline3!
-            .copyWith(fontSize: fontSize, color: fontColor, fontWeight: fontWeight),
-        decoration: isDecoration
-            ? InputDecoration(
-                // hintText: hint,
-                isDense: true,
-                labelText: hint,
-                labelStyle: TextStyle(
-                    fontSize: hintFontSize.px,
-                    height: 0.9,
-                    fontWeight: FontWeight.w500,
-                    color: hintColor,
-                    fontFamily: AppTheme.defaultFont,
-                    fontStyle: FontStyle.normal),
-                // hintMaxLines: hintMaxLines,
-                // hintStyle: TextStyle(
-                //     fontSize: hintFontSize.px,
-                //     height: 0.9,
-                //     fontWeight: FontWeight.w500,
-                //     color: hintColor,
-                //     fontFamily: AppTheme.defaultFont,
-                //     fontStyle: FontStyle.normal),
-                filled: true,
-                suffixIcon: suffixIcon,
-                suffixIconConstraints:
-                    BoxConstraints(minWidth: iconWidth ?? 24.px, maxHeight: 24.px),
-                prefixIcon: prefixIcon,
-                fillColor: isDecoration ? fillColor : ColorConstant.transparent,
-                prefixIconConstraints: BoxConstraints(minWidth: 24.px, maxHeight: 24.px),
-                // contentPadding:
-                //     contentPadding ?? EdgeInsets.symmetric(horizontal: 8.px, vertical: 8.px),
-                border: /*isBorder
-                    ? OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(borderRadius.px),
-                        borderSide: BorderSide(color: borderColor, width: borderWidth),
-                      )
-                    : InputBorder.none,
-                disabledBorder: isBorder
-                    ? OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(borderRadius.px),
-                        borderSide: BorderSide(color: borderColor, width: borderWidth),
-                      )
-                    : InputBorder.none,
-                enabledBorder: isEnableBorder
-                    ? OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(borderRadius.px),
-                        borderSide: BorderSide(color: borderColor, width: borderWidth),
-                      )
-                    : InputBorder.none,
-                errorBorder: isBorder
-                    ? OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(borderRadius.px),
-                        borderSide: BorderSide(color: borderColor, width: borderWidth),
-                      )
-                    : InputBorder.none,
-                focusedBorder: isEnableBorder
-                    ? OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(borderRadius.px),
-                        borderSide: BorderSide(color: borderColor, width: borderWidth),
-                      )
-                    : */
-                    InputBorder.none,
-              )
-            : InputDecoration(
-                hintText: hint,
-                isDense: true,
-                suffixIcon: suffixIcon,
-                suffixIconConstraints: BoxConstraints(minWidth: 20.px, maxHeight: 20.px),
-                contentPadding:
-                    contentPadding ?? EdgeInsets.symmetric(horizontal: 8.px, vertical: 8.px),
-                hintStyle: TextStyle(
-                  fontSize: fontSize,
-                  letterSpacing: letterSpacing,
-                  color: fontColor,
-                  fontStyle: FontStyle.normal,
-                ),
-              ),
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 6.px,vertical: 4.px),
+          decoration: BoxDecoration(
+            border: Border.all(color: ColorConstant.border, width: 2.px),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: TextFormField(
+            onFieldSubmitted: onSubmitted,
+            onTap: onTap,
+            focusNode: focusNode,
+            onChanged: onChanged,
+            readOnly: readOnly,
+            controller: controller,
+            obscureText: isObscureText,
+            textInputAction: textInputAction,
+            keyboardType: keyboardType,
+            cursorColor: cursorColor,
+            cursorHeight: cursorHeight,
+            cursorWidth: cursorWidth,
+            textAlign: textAlign,
+            inputFormatters: inputFormatters,
+            autofocus: autoFocus,
+            style: Theme.of(context)
+                .textTheme
+                .headline3!
+                .copyWith(fontSize: fontSize, color: fontColor, fontWeight: fontWeight),
+            decoration: isDecoration
+                ? InputDecoration(
+                    // hintText: hint,
+                    isDense: true,
+                    labelText: hint,
+                    labelStyle: TextStyle(
+                        fontSize: hintFontSize.px,
+                        height: 0.9,
+                        fontWeight: FontWeight.w500,
+                        color: hintColor,
+                        fontFamily: AppTheme.defaultFont,
+                        fontStyle: FontStyle.normal),
+                    // hintMaxLines: hintMaxLines,
+                    // hintStyle: TextStyle(
+                    //     fontSize: hintFontSize.px,
+                    //     height: 0.9,
+                    //     fontWeight: FontWeight.w500,
+                    //     color: hintColor,
+                    //     fontFamily: AppTheme.defaultFont,
+                    //     fontStyle: FontStyle.normal),
+                    filled: true,
+                    suffixIcon: suffixIcon,
+                    suffixIconConstraints:
+                        BoxConstraints(minWidth: iconWidth ?? 24.px, maxHeight: 24.px),
+                    prefixIcon: prefixIcon,
+                    fillColor: isDecoration ? fillColor : ColorConstant.transparent,
+                    prefixIconConstraints: BoxConstraints(minWidth: 24.px, maxHeight: 24.px),
+                    // contentPadding:
+                    //     contentPadding ?? EdgeInsets.symmetric(horizontal: 8.px, vertical: 8.px),
+                    border: /*isBorder
+                        ? OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(borderRadius.px),
+                            borderSide: BorderSide(color: borderColor, width: borderWidth),
+                          )
+                        : InputBorder.none,
+                    disabledBorder: isBorder
+                        ? OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(borderRadius.px),
+                            borderSide: BorderSide(color: borderColor, width: borderWidth),
+                          )
+                        : InputBorder.none,
+                    enabledBorder: isEnableBorder
+                        ? OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(borderRadius.px),
+                            borderSide: BorderSide(color: borderColor, width: borderWidth),
+                          )
+                        : InputBorder.none,
+                    errorBorder: isBorder
+                        ? OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(borderRadius.px),
+                            borderSide: BorderSide(color: borderColor, width: borderWidth),
+                          )
+                        : InputBorder.none,
+                    focusedBorder: isEnableBorder
+                        ? OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(borderRadius.px),
+                            borderSide: BorderSide(color: borderColor, width: borderWidth),
+                          )
+                        : */
+                        InputBorder.none,
+                  )
+                : InputDecoration(
+                    hintText: hint,
+                    isDense: true,
+                    suffixIcon: suffixIcon,
+                    suffixIconConstraints: BoxConstraints(minWidth: 20.px, maxHeight: 20.px),
+                    contentPadding:
+                        contentPadding ?? EdgeInsets.symmetric(horizontal: 8.px, vertical: 8.px),
+                    hintStyle: TextStyle(
+                      fontSize: fontSize,
+                      letterSpacing: letterSpacing,
+                      color: fontColor,
+                      fontStyle: FontStyle.normal,
+                    ),
+                  ),
+          ),
+        ),
+        if (errorText.isNotEmpty) ...[
+          SizedBox(height: 6.px),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.px),
+            child: AppText(text: errorText, fontColor: ColorConstant.offRed, fontSize: 12.px),
+          ),
+        ],
+      ],
     );
   }
 }

@@ -1,22 +1,23 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
-import '../../model/sign_in_response.dart';
-import '../constant/string_constant.dart';
-import '../services/rest_service.dart';
-import '../utils/utils.dart';
-import '../utils/validation_utils.dart';
+import 'package:new_job_portal/model/sign_in_response.dart';
+import 'package:new_job_portal/services/rest_service.dart';
+import 'package:new_job_portal/services/share_preference.dart';
+import 'package:new_job_portal/utils/string_extensions.dart';
+import 'package:new_job_portal/utils/utils.dart';
+import 'package:new_job_portal/utils/validation_utils.dart';
 
 class SignInController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  SignInResponse? signInResponse;
   bool isPasswordVisible = true;
   bool isLoading = false;
-  String emailError = '', passwordError = '';
+  String emailError = '';
+  String passwordError = '';
 
   void passwordHideShow() {
     isPasswordVisible = !isPasswordVisible;
@@ -24,48 +25,43 @@ class SignInController extends GetxController {
   }
 
   checkValidation() {
-    if (emailController.text.isNotEmpty &&
-        !ValidationUtils.regexValidator(emailController, ValidationUtils.emailRegExp)) {
-      emailError = StringConstant.validEmail.tr;
+    if (ValidationUtils.validateEmptyController(emailController)) {
+      emailError = 'Please enter email';
+    } else if (!ValidationUtils.regexValidator(emailController, ValidationUtils.emailRegExp)) {
+      emailError = 'Please enter valid email';
     } else {
       emailError = '';
     }
-    // if (passwordController.text.isNotEmpty &&
-    //     !ValidationUtils.regexValidator(passwordController, ValidationUtils.passwordRegexp)) {
-    //   passwordError = StringConstant.validEmail.tr;
-    //   logs("hello 123");
-    // } else {
-    //   logs("hello");
-    //   passwordError = '';
-    // }
-    if(emailError.isEmpty && passwordError.isEmpty){
-      login();
+    if (ValidationUtils.validateEmptyController(passwordController)) {
+      passwordError = 'Please enter password';
+    } else {
+      passwordError = '';
     }
     update();
+    if (emailError.isEmpty && passwordError.isEmpty) {
+      validateUserCredentialls();
+    }
   }
 
-  Future<void> login() async {
+  Future<void> validateUserCredentialls() async {
     try {
       showLoader(true);
-      final response =
-          await RestServices.instance.postRestCall(endpoint: RestConstants.instance.login, body: {
-        "email": emailController.text.trim().toString(),
-        "password": passwordController.text.trim().toString(),
-      });
+      Map<String, dynamic> bodyMap = {
+        'email': emailController.text,
+        'password': passwordController.text,
+        'tokenid': ''
+      };
+      final response = await RestServices.instance.postRestCall(endpoint: RestConstants.instance.login, body: bodyMap);
       if (response != null && response.isNotEmpty) {
-        signInResponse = signInResponseFromJson(response);
-
-        logs("Login response --> ${signInResponse!.userdata!.email}");
-
-        successToast(signInResponse!.message.toString());
-        // await setPrefBoolValue(isUserLoginKey, true);
-        // await setPrefBoolValue(profileStatusKey, otpVerifyResponse!.info.isProfileStatus);
-        // await setPrefBoolValue(addMemberStatusKey, otpVerifyResponse!.info.isAddMemeberStatus);
-        // await setPrefBoolValue(userSelectedStatusKey, otpVerifyResponse!.info.isUserSelectedStatus);
-        // await setPrefStringValue(memberIdKey, otpVerifyResponse!.info.memberId);
-        // await setPrefStringValue(registerIdKey, otpVerifyResponse!.info.registerId);
-        // await setPrefStringValue(accessTokenKey, otpVerifyResponse!.info.token);
-      } else {}
+        Map<String, dynamic> responseMap = jsonDecode(response);
+        if (responseMap.containsKey('status') && responseMap['status']) {
+          SharedPrefService.instance.setPrefBoolValue(SharedPrefService.instance.isAuthenticateUser, true);
+          SharedPrefService.instance.setPrefStringValue(SharedPrefService.instance.authenticationToken, responseMap['token']);
+          responseMap['message'].toString().showSuccess();
+          emailController.clear();
+          passwordController.clear();
+        }
+      }
     } on SocketException catch (e) {
       logs('Socket exception in userLogin --> ${e.message}');
     }

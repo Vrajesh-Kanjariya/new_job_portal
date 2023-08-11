@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:new_job_portal/utils/string_extensions.dart';
 
 import '../../services/connectivity_service.dart';
 import '../../utils/shared_preference.dart';
@@ -23,7 +24,7 @@ class RestConstants {
 
   //     ======================= API EndPoints =======================     //
   final String login = 'login';
-
+  final String register = 'register';
 }
 
 class RestServices {
@@ -46,7 +47,7 @@ class RestServices {
   void showRequestAndResponseLogs(http.Response? response, Map<String, Object> requestData) {
     logs('•••••••••• Network logs ••••••••••');
     logs('Request url --> ${response!.request!.url}');
-    log('Request headers --> $requestData');
+    logs('Request headers --> $requestData');
     logs('Status code --> ${response.statusCode}');
     logs('Response headers --> ${response.headers}');
     logs('Response body --> ${response.body}');
@@ -100,15 +101,10 @@ class RestServices {
     return responseData;
   }
 
-  Future<String?>? postRestCall(
-      {required String? endpoint,
-      required Map<String, dynamic>? body,
-      }) async {
+  Future<String?>? postRestCall({required String? endpoint, required Map<String, dynamic>? body}) async {
     String? responseData;
     bool connected = await ConnectivityService.instance.isConnectNetworkWithMessage();
-    if (!connected) {
-      return responseData;
-    }
+    if (!connected) return responseData;
 
     try {
       String requestUrl = '${RestConstants.instance.apiBaseUrl}/$endpoint';
@@ -116,20 +112,18 @@ class RestServices {
       logs('Body map --> $body');
       Map<String, String> headers = await getHeaders();
 
-      Response response =
-          await http.post(requestedUri!, body: body, headers: headers);
+      Response response = await http.post(requestedUri!, body: body, headers: headers);
       showRequestAndResponseLogs(response, headers);
       switch (response.statusCode) {
         case 200:
         case 201:
-          logs("response body ==> ${response.body}");
-        Map<String, dynamic> responseMap = jsonDecode(response.body);
-
-          if (responseMap['status'] == null || responseMap.containsKey('status') && responseMap['status'] == true) {
-            responseData = response.body;
-          } else {
-            errorToast('${responseMap['msg']}');
-            responseData = null;
+          Map<String, dynamic> responseMap = jsonDecode(response.body);
+          if (responseMap.isNotEmpty) {
+            if (responseMap.containsKey('status') && responseMap['status'] == true) {
+              responseData = response.body;
+            } else {
+              responseMap['message'].toString().showError();
+            }
           }
           break;
         case 400:
@@ -177,7 +171,7 @@ class RestServices {
         request.fields.addAll(body);
       }
 
-      if(keyName.isNotEmpty && fileName.isNotEmpty) {
+      if (keyName.isNotEmpty && fileName.isNotEmpty) {
         request.files.add(await http.MultipartFile.fromPath(
           keyName,
           fileName,

@@ -113,7 +113,7 @@ class AppDropdownButton extends StatelessWidget {
           padding: buttonPadding ?? const EdgeInsets.fromLTRB(24, 15, 0, 18),
           decoration: buttonDecoration ??
               BoxDecoration(
-                color: ColorConstant.white,
+                color: ColorConstant.appWhite,
                 borderRadius: BorderRadius.circular(50),
               ),
           elevation: buttonElevation,
