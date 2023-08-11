@@ -60,13 +60,13 @@ class SignInPage extends StatelessWidget {
                               image: ImageConstant.backIcon,
                               height: 20.px,
                               width: 20.px,
-                              color: ColorConstant.white),
+                              color: ColorConstant.appWhite),
                         ),
                       ),
                       const Spacer(),
                       AppText(
                         text: StringConstant.dontAccount,
-                        fontColor: ColorConstant.white,
+                        fontColor: ColorConstant.appWhite,
                         fontSize: 12.px,
                         fontWeight: FontWeight.w300,
                       ),
@@ -83,7 +83,7 @@ class SignInPage extends StatelessWidget {
                           ),
                           child: AppText(
                             text: StringConstant.getStarted,
-                            fontColor: ColorConstant.white,
+                            fontColor: ColorConstant.appWhite,
                             fontSize: 12.px,
                             fontWeight: FontWeight.w300,
                           ),
@@ -101,7 +101,7 @@ class SignInPage extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.16,
                 child: AppText(
                   text: StringConstant.appTitle,
-                  fontColor: ColorConstant.white,
+                  fontColor: ColorConstant.appWhite,
                   fontWeight: FontWeight.w600,
                   fontSize: 30.px,
                 ),
@@ -136,7 +136,7 @@ class SignInPage extends StatelessWidget {
                 Container(
                   height: MediaQuery.of(context).size.height * 0.688,
                   decoration: BoxDecoration(
-                    color: ColorConstant.white,
+                    color: ColorConstant.appWhite,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20.px),
                       topRight: Radius.circular(20.px),
@@ -180,7 +180,7 @@ class SignInPage extends StatelessWidget {
                           controller: controller.emailController,
                           hint: StringConstant.enterEmail,
                           fontSize: 15.px,
-                          fillColor: ColorConstant.white,
+                          fillColor: ColorConstant.appWhite,
                           borderColor: ColorConstant.grey,
                           borderWidth: 2.px,
                           autoFocus: false,
@@ -207,7 +207,7 @@ class SignInPage extends StatelessWidget {
                           controller: controller.passwordController,
                           hint: StringConstant.enterPassword,
                           fontSize: 15.px,
-                          fillColor: ColorConstant.white,
+                          fillColor: ColorConstant.appWhite,
                           borderColor: ColorConstant.grey,
                           borderWidth: 2.px,
                           autoFocus: false,

@@ -23,7 +23,7 @@ class RestConstants {
 
   //     ======================= API EndPoints =======================     //
   final String login = 'login';
-
+  final String register = 'register';
 }
 
 class RestServices {
@@ -100,15 +100,10 @@ class RestServices {
     return responseData;
   }
 
-  Future<String?>? postRestCall(
-      {required String? endpoint,
-      required Map<String, dynamic>? body,
-      }) async {
+  Future<String?>? postRestCall({required String? endpoint, required Map<String, dynamic>? body}) async {
     String? responseData;
     bool connected = await ConnectivityService.instance.isConnectNetworkWithMessage();
-    if (!connected) {
-      return responseData;
-    }
+    if (!connected) return responseData;
 
     try {
       String requestUrl = '${RestConstants.instance.apiBaseUrl}/$endpoint';
@@ -116,14 +111,13 @@ class RestServices {
       logs('Body map --> $body');
       Map<String, String> headers = await getHeaders();
 
-      Response response =
-          await http.post(requestedUri!, body: body, headers: headers);
+      Response response = await http.post(requestedUri!, body: body, headers: headers);
       showRequestAndResponseLogs(response, headers);
       switch (response.statusCode) {
         case 200:
         case 201:
           logs("response body ==> ${response.body}");
-        Map<String, dynamic> responseMap = jsonDecode(response.body);
+          Map<String, dynamic> responseMap = jsonDecode(response.body);
 
           if (responseMap['status'] == null || responseMap.containsKey('status') && responseMap['status'] == true) {
             responseData = response.body;
@@ -177,7 +171,7 @@ class RestServices {
         request.fields.addAll(body);
       }
 
-      if(keyName.isNotEmpty && fileName.isNotEmpty) {
+      if (keyName.isNotEmpty && fileName.isNotEmpty) {
         request.files.add(await http.MultipartFile.fromPath(
           keyName,
           fileName,

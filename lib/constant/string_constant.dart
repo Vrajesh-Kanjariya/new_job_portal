@@ -4,14 +4,11 @@ class StringConstant {
   //     ======================= Login Screen =======================     //
   static const String emailRegExp =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{3,}))$';
-  static const String passwordRegexp =
-      r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{0,}$";
-
+  static const String passwordRegexp = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{0,}$";
 
   static const String refresh = 'Refresh';
   static const String noInternet = 'Oops, NO Internet Connection';
-  static const String noInternetMsg =
-      'Make Sure wifi or cellular data is turned on and then try again.';
+  static const String noInternetMsg = 'Make Sure wifi or cellular data is turned on and then try again.';
 
   //     ======================= Welcome Screen =======================     //
   static const String findJobs = 'Find jobs';
@@ -27,6 +24,7 @@ class StringConstant {
   static const String signUp = 'Sign Up';
   static const String forgotPassword = 'Forgot Password';
   static const String enterEmail = 'Enter email';
+  static const String enterPhoneNumber = 'Enter phone number';
   static const String enterPassword = 'Enter password';
   static const String enterName = 'Enter name';
   static const String enterPhone = 'Enter phone';
@@ -56,12 +54,10 @@ class StringConstant {
 
   //    ======================= Welcome Screen =======================    //
   static const String welcomeScr = 'Welcome!';
-  static const String welcomeDesc =
-      'Login with your data that you entered during your registration.';
+  static const String welcomeDesc = 'Login with your data that you entered during your registration.';
   static const String recruiter = 'Recruiter';
   static const String candidate = 'Candidate';
-  static const String privacyDesc =
-      'By Using Indeed, you agree and consent to our:';
+  static const String privacyDesc = 'By Using Indeed, you agree and consent to our:';
   static const String termsOfService = 'Terms of Service';
   static const String cookiePolicy = 'Cookie Policy';
   static const String privacyPolicy = 'Privacy Policy';
@@ -76,8 +72,7 @@ class StringConstant {
   static const String private = 'Private';
   static const String contactInfo = 'Contact Information';
   static const String jobPref = 'Job Preferences';
-  static const String jobDesc =
-      'Employers searching for candidates may see these when you CV is set to public.';
+  static const String jobDesc = 'Employers searching for candidates may see these when you CV is set to public.';
   static const String jobDesc2 =
       'Save specific details, like your desired pay and work schedule, which help us much you with better jobs';
 
@@ -99,8 +94,7 @@ class StringConstant {
 
   //    ======================= Profile Edit Screen =======================   //
   static const String profileAppBar = "Personal Information";
-  static const String requiredFields =
-      '<font color="red" size="20">*</font> Required Fields';
+  static const String requiredFields = '<font color="red" size="20">*</font> Required Fields';
   static const String firstName = 'First Name';
   static const String birthDate = 'Birth Date';
   static const String enterFirstName = 'Enter first Name';
@@ -110,8 +104,7 @@ class StringConstant {
   static const String female = 'Female';
   static const String other = 'Other';
   static const String emailAddress = 'Email Address';
-  static const String emailAddInfo =
-      'only provided to employers you apply or respond to.';
+  static const String emailAddInfo = 'only provided to employers you apply or respond to.';
   static const String location = 'Location';
   static const String locationAddInfo =
       'Providing a specific location helps to connect you with the right job.\nYour street address is visible to you only.';
