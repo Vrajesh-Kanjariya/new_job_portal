@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:new_job_portal/model/sign_in_response.dart';
+import 'package:new_job_portal/routes/app_navigation.dart';
 import 'package:new_job_portal/services/rest_service.dart';
 import 'package:new_job_portal/services/share_preference.dart';
 import 'package:new_job_portal/utils/string_extensions.dart';
@@ -60,6 +61,7 @@ class SignInController extends GetxController {
           responseMap['message'].toString().showSuccess();
           emailController.clear();
           passwordController.clear();
+          gotoDashboard();
         }
       }
     } on SocketException catch (e) {

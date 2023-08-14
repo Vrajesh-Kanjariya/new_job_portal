@@ -25,4 +25,8 @@ class ColorConstant {
   static const Color offWhite2 = Color(0xFFF5F5F5);
   static const Color border = Color(0xFFF1F1F1);
   static const Color offRed = Color(0xFFC21D00);
+  static const Color filledColor = Color(0xFFF2F3F5);
+  static const Color chipsBg = Color(0xFFE5F5FF);
+  static const Color chipsText = Color(0xFF8BCAEF);
+  static const Color blueText = Color(0xFF738AE6);
 }

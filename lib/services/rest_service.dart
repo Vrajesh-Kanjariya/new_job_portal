@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:new_job_portal/services/share_preference.dart';
 import 'package:new_job_portal/utils/string_extensions.dart';
 
 import '../../services/connectivity_service.dart';
@@ -25,6 +26,7 @@ class RestConstants {
   //     ======================= API EndPoints =======================     //
   final String login = 'login';
   final String register = 'register';
+  final String getJobs = 'getJobs';
 }
 
 class RestServices {
@@ -35,12 +37,12 @@ class RestServices {
   Map<String, String> headers = {'Content-Type': 'application/json'};
 
   Future<Map<String, String>> getHeaders() async {
-    String? token = await getPrefStringValue(accessTokenKey);
+    String? token = await getPrefStringValue(SharedPrefService.instance.authenticationToken);
     return {
       // 'accessStatus': Global.getAccessStatus(),
       // 'Content-Type': 'application/json',
       // 'Accept': 'application/json',
-      if (token != null) 'Authorization': 'Bearer $token',
+      if (token != null) 'Authorization': '$token',
     };
   }
 

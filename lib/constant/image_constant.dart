@@ -23,6 +23,8 @@ class ImageConstant {
   static const user = '${iconPath}user.png';
   static const save = '${iconPath}save.png';
   static const search = '${iconPath}search.png';
+  static const filter = '${iconPath}filter.png';
+  static const mapMarker = '${iconPath}map_marker.png';
 
 
   //     ======================= Animations =======================     //

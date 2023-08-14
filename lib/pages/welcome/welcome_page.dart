@@ -13,8 +13,6 @@ import '../../controller/welcome_controller.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_image_assets.dart';
 import '../../widgets/app_text.dart';
-import '../../widgets/app_text_form_field.dart';
-import '../../widgets/app_theme.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -24,6 +22,12 @@ class WelcomePage extends StatelessWidget {
     logs('Current screen --> $runtimeType');
     return GetBuilder<WelcomeController>(
       init: WelcomeController(),
+      initState: (state) {
+        Future.delayed(const Duration(milliseconds: 300),() {
+          WelcomeController controller = Get.find<WelcomeController>();
+          controller.getAuthUser();
+        },);
+      },
       builder: (WelcomeController controller) {
         return Scaffold(
           appBar: AppBar(toolbarHeight: 0.0),

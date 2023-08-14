@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:new_job_portal/utils/utils.dart';
+import 'package:new_job_portal/widgets/app_loader.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../constant/color_constant.dart';
@@ -23,7 +24,12 @@ class SignInPage extends StatelessWidget {
     logs('Current screen --> $runtimeType');
     return GetBuilder<SignInController>(
       init: SignInController(),
-      builder: (SignInController controller) => Scaffold(body: _signInBody(context, controller)),
+      builder: (SignInController controller) => Scaffold(body: Stack(
+        children: [
+          _signInBody(context, controller),
+          loader(controller.isLoading),
+        ],
+      )),
     );
   }
 
@@ -233,4 +239,6 @@ class SignInPage extends StatelessWidget {
       ],
     );
   }
+
+  Widget loader(bool isLoading) => isLoading ? const AppLoader() : const SizedBox();
 }

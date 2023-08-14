@@ -12,6 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 const String aboutTemple = 'About Temple';
 const String clock = 'Clock';
 const String countryCode = '91';
+bool isAuthUser = false;
 
 
 void logs(String message) {
