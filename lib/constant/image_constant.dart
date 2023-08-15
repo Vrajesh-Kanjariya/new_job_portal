@@ -26,6 +26,8 @@ class ImageConstant {
   static const filter = '${iconPath}filter.png';
   static const mapMarker = '${iconPath}map_marker.png';
   static const bookmark = '${iconPath}bookmark.png';
+  static const setting = '${iconPath}setting.png';
+  static const customer = '${iconPath}customer.png';
 
 
   //     ======================= Animations =======================     //
