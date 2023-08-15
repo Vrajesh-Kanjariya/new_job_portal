@@ -20,7 +20,7 @@ class GetJobResponse {
   });
 
   factory GetJobResponse.fromJson(Map<String, dynamic> json) => GetJobResponse(
-    jobs: List<Job>.from(json["jobs"].map((x) => Job.fromJson(x))),
+    jobs: json["jobs"] == null ? [] : List<Job>.from(json["jobs"].map((x) => Job.fromJson(x))),
     totalRecords: json["total_records"],
     status: json["status"],
   );
