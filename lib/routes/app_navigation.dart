@@ -45,3 +45,7 @@ gotoFavourite(){
 gotoProfile(){
   Get.toNamed(RouteHelper.getProfileRoute());
 }
+
+gotoJobDetails(){
+  Get.toNamed(RouteHelper.getJobDetailsRoute());
+}

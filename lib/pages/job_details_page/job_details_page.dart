@@ -20,6 +20,7 @@ class JobDetailsPage extends StatelessWidget {
           return Scaffold(
             appBar: appBar(),
             body: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               shrinkWrap: true,
               children: [
                 appLogoView(),
@@ -65,8 +66,8 @@ class JobDetailsPage extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-                  margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: ColorConstant.appgrey),
@@ -80,12 +81,12 @@ class JobDetailsPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 10),
                 SizedBox(
                   height: 35,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     itemBuilder: (context, index) {
                       bool isSelected = jobDetailsController.selectedIndex == index;
                       return GestureDetector(
@@ -108,28 +109,11 @@ class JobDetailsPage extends StatelessWidget {
                     separatorBuilder: (context, index) => const SizedBox(width: 12),
                     itemCount: jobDetailsController.jobDetailsList.length,
                   ),
-                ),const AppText(
-                  text: 'About this job',
-                  textAlign: TextAlign.center,
-                  fontWeight: FontWeight.w600,
                 ),
-                AppText(
-                  fontColor: ColorConstant.appBlack,
-                  fontSize: 13,
-                  textAlign: TextAlign.center,
-                  maxLines: jobDetailsController.isReadMore ? null : 3,
-                  text:
-                      'Lorem Ipsum is simply dummy text of the printing and typeset ting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typeset ting industry. '*12,
-                ),
-                SizedBox(height: 5.px),
-                GestureDetector(
-                  onTap: () => jobDetailsController.readMore(),
-                  child: AppText(
-                    text: !jobDetailsController.isReadMore ? 'Read more' : 'Show less',
-                    fontSize: 12,
-                    fontColor: ColorConstant.appBlue,
-                  ),
-                )
+                if (jobDetailsController.selectedIndex == 0) descriptionDetailsView(jobDetailsController),
+                if (jobDetailsController.selectedIndex == 1) mapView(),
+                if (jobDetailsController.selectedIndex == 2) companyView(),
+                if (jobDetailsController.selectedIndex == 3) reviewView(),
               ],
             ),
             bottomNavigationBar: const AppElevatedButton(text: 'Apply Now', margin: 15),
@@ -148,9 +132,9 @@ class JobDetailsPage extends StatelessWidget {
 
   appLogoView() {
     return Container(
-      height: 90,
+      height: 80,
       alignment: Alignment.center,
-      margin: const EdgeInsets.symmetric(horizontal: 160, vertical: 15).copyWith(bottom: 25),
+      margin: const EdgeInsets.symmetric(horizontal: 140, vertical: 15).copyWith(bottom: 25),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: ColorConstant.appWhite,
@@ -194,6 +178,80 @@ class JobDetailsPage extends StatelessWidget {
           fontColor: ColorConstant.appBlack,
         ),
       ],
+    );
+  }
+
+  descriptionDetailsView(JobDetailsController jobDetailsController) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 20),
+        const AppText(
+          text: 'About this job',
+          fontSize: 16,
+          textAlign: TextAlign.start,
+          fontWeight: FontWeight.w600,
+        ),
+        const SizedBox(height: 10),
+        AppText(
+          fontColor: ColorConstant.appBlack,
+          fontSize: 13,
+          textAlign: TextAlign.start,
+          maxLines: jobDetailsController.isReadMore ? 100 : 3,
+          text:
+              'Lorem Ipsum is simply dummy text of the printing and typeset ting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typeset ting industry. ' *
+                  12,
+        ),
+        SizedBox(height: 5.px),
+        GestureDetector(
+          onTap: () => jobDetailsController.readMore(),
+          child: AppText(
+            text: !jobDetailsController.isReadMore ? 'Read more' : 'Show less',
+            fontSize: 12,
+            fontColor: ColorConstant.appBlue,
+          ),
+        ),
+        const SizedBox(height: 15),
+        const AppText(
+          text: 'In the short term,you will',
+          fontSize: 16,
+          textAlign: TextAlign.start,
+          fontWeight: FontWeight.w600,
+        ),
+        const SizedBox(height: 10),
+        const AppText(
+          text: '• Become familiar with our design systems,style & design process',
+          textAlign: TextAlign.start,
+          maxLines: 2,
+          fontSize: 13,
+        ),
+        const SizedBox(height: 5),
+        const AppText(
+          text: '• Contribute to designs & design reviews',
+          textAlign: TextAlign.start,
+          maxLines: 2,
+          fontSize: 13,
+        ),
+        const SizedBox(height: 10),
+      ],
+    );
+  }
+
+  mapView() {
+    return const Center(
+      child: AppText(text: 'Map'),
+    );
+  }
+
+  companyView() {
+    return const Center(
+      child: AppText(text: 'Company'),
+    );
+  }
+
+  reviewView() {
+    return const Center(
+      child: AppText(text: 'Review'),
     );
   }
 }

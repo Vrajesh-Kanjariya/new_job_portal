@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:new_job_portal/constant/color_constant.dart';
 import 'package:new_job_portal/constant/image_constant.dart';
 import 'package:new_job_portal/controller/home_controller.dart';
+import 'package:new_job_portal/routes/app_navigation.dart';
 import 'package:new_job_portal/widgets/app_image_assets.dart';
 import 'package:new_job_portal/widgets/app_loader.dart';
 import 'package:new_job_portal/widgets/app_text.dart';
@@ -86,109 +87,112 @@ class HomePage extends StatelessWidget {
                     itemCount: controller.getJobResponse!.jobs!.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 12.px),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.px),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(16.px),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    AppImageAsset(
-                                      image: ImageConstant.userAvatar,
-                                      height: 60.px,
-                                      width: 60.px,
-                                    ),
-                                    SizedBox(
-                                      width: 12.px,
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          AppText(
-                                            text: controller.getJobResponse!.jobs![index].title,
-                                            fontSize: 18.px,
-                                            fontWeight: FontWeight.w600,
-                                            maxLines: 2,
-                                            fontColor: ColorConstant.appBlack,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          AppText(
-                                            text: controller.getJobResponse!.jobs![index].company!.first.companyName,
-                                            fontSize: 14.px,
-                                            fontColor: ColorConstant.textGrey,
-                                          ),
-                                        ],
+                      return InkWell(
+                        onTap: () => gotoJobDetails(),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 12.px),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.px),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(16.px),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      AppImageAsset(
+                                        image: ImageConstant.userAvatar,
+                                        height: 60.px,
+                                        width: 60.px,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 12.px,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 8.px),
-                                  decoration: BoxDecoration(
-                                    color: ColorConstant.chipsBg,
-                                    borderRadius: BorderRadius.circular(16.px),
-                                  ),
-                                  child: AppText(
-                                    text: controller.getJobResponse!.jobs![index].jobType,
-                                    fontColor: ColorConstant.chipsText,
-                                    fontSize: 13.px,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 12.px,
-                                ),
-                                Row(
-                                  children: [
-                                    AppImageAsset(
-                                      image: ImageConstant.mapMarker,
-                                      width: 16.px,
-                                      height: 16.px,
-                                    ),
-                                    SizedBox(
-                                      width: 5.px,
-                                    ),
-                                    AppText(
-                                      text: '${controller.getJobResponse!.jobs![index].city}, ${controller.getJobResponse!.jobs![index].country}',
-                                      fontSize: 14.px,
-                                    ),
-                                    const Spacer(),
-                                    Text.rich(
-                                      TextSpan(
-                                        text: controller.getJobResponse!.jobs![index].salary,
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorConstant.blueText,
-                                            fontFamily: AppTheme.defaultFont,
-                                          fontSize: 20.0
+                                      SizedBox(
+                                        width: 12.px,
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            AppText(
+                                              text: controller.getJobResponse!.jobs![index].title,
+                                              fontSize: 18.px,
+                                              fontWeight: FontWeight.w600,
+                                              maxLines: 2,
+                                              fontColor: ColorConstant.appBlack,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            AppText(
+                                              text: controller.getJobResponse!.jobs![index].company!.first.companyName,
+                                              fontSize: 14.px,
+                                              fontColor: ColorConstant.textGrey,
+                                            ),
+                                          ],
                                         ),
-                                        children: const <TextSpan>[
-                                          TextSpan(
-                                              text: '/ mo',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                color: ColorConstant.appBlack,
-                                                fontFamily: AppTheme.defaultFont,
-                                                fontSize: 16.0
-                                              )
-                                          ),
-                                        ],
                                       ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 12.px,
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 8.px),
+                                    decoration: BoxDecoration(
+                                      color: ColorConstant.chipsBg,
+                                      borderRadius: BorderRadius.circular(16.px),
                                     ),
-                                  ],
-                                ),
-                              ],
+                                    child: AppText(
+                                      text: controller.getJobResponse!.jobs![index].jobType,
+                                      fontColor: ColorConstant.chipsText,
+                                      fontSize: 13.px,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 12.px,
+                                  ),
+                                  Row(
+                                    children: [
+                                      AppImageAsset(
+                                        image: ImageConstant.mapMarker,
+                                        width: 16.px,
+                                        height: 16.px,
+                                      ),
+                                      SizedBox(
+                                        width: 5.px,
+                                      ),
+                                      AppText(
+                                        text: '${controller.getJobResponse!.jobs![index].city}, ${controller.getJobResponse!.jobs![index].country}',
+                                        fontSize: 14.px,
+                                      ),
+                                      const Spacer(),
+                                      Text.rich(
+                                        TextSpan(
+                                          text: controller.getJobResponse!.jobs![index].salary,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: ColorConstant.blueText,
+                                              fontFamily: AppTheme.defaultFont,
+                                            fontSize: 20.0
+                                          ),
+                                          children: const <TextSpan>[
+                                            TextSpan(
+                                                text: '/ mo',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: ColorConstant.appBlack,
+                                                  fontFamily: AppTheme.defaultFont,
+                                                  fontSize: 16.0
+                                                )
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
