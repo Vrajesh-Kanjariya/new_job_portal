@@ -10,7 +10,7 @@ class AppText extends StatelessWidget {
   final Color fontColor;
   final TextAlign? textAlign;
   final TextOverflow? overflow;
-  final int maxLines;
+  final int? maxLines;
   final double? wordSpacing;
   final double? letterSpacing;
   final TextDecoration? textDecoration;
@@ -20,10 +20,10 @@ class AppText extends StatelessWidget {
     @required this.text,
     this.fontSize,
     this.fontWeight,
-    this.fontColor = ColorConstant.black,
+    this.fontColor = ColorConstant.appBlack,
     this.textAlign,
     this.overflow = TextOverflow.ellipsis,
-    this.maxLines = 1,
+    this.maxLines,
     this.wordSpacing,
     this.letterSpacing,
     this.textDecoration,

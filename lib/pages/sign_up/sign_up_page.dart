@@ -72,7 +72,7 @@ class SignUpPage extends StatelessWidget {
                           padding: EdgeInsets.symmetric(horizontal: 10.px, vertical: 8.px),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.px),
-                            color: ColorConstant.lightBlue,
+                            color: ColorConstant.lightPurple,
                           ),
                           child: AppText(
                             text: StringConstant.signIn,
@@ -116,8 +116,8 @@ class SignUpPage extends StatelessWidget {
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                         colors: [
-                          ColorConstant.lightBlue,
-                          ColorConstant.lightBlue,
+                          ColorConstant.lightPurple,
+                          ColorConstant.lightPurple,
                         ],
                       ),
                       borderRadius: BorderRadius.only(
@@ -182,11 +182,11 @@ class SignUpPage extends StatelessWidget {
                           hint: StringConstant.enterName,
                           fontSize: 15.px,
                           fillColor: ColorConstant.appWhite,
-                          borderColor: ColorConstant.grey,
+                          borderColor: ColorConstant.appgrey,
                           borderWidth: 2.px,
                           autoFocus: false,
                           hintFontSize: 14.px,
-                          fontColor: ColorConstant.black,
+                          fontColor: ColorConstant.appBlack,
                           inputFormatters: [
                             LengthLimitingTextInputFormatter(15),
                             FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))
@@ -203,11 +203,11 @@ class SignUpPage extends StatelessWidget {
                           hint: StringConstant.enterPhoneNumber,
                           fontSize: 15.px,
                           fillColor: ColorConstant.appWhite,
-                          borderColor: ColorConstant.grey,
+                          borderColor: ColorConstant.appgrey,
                           borderWidth: 2.px,
                           autoFocus: false,
                           hintFontSize: 14.px,
-                          fontColor: ColorConstant.black,
+                          fontColor: ColorConstant.appBlack,
                           inputFormatters: [
                             LengthLimitingTextInputFormatter(10),
                             FilteringTextInputFormatter.digitsOnly
@@ -224,11 +224,11 @@ class SignUpPage extends StatelessWidget {
                           hint: StringConstant.enterEmail,
                           fontSize: 15.px,
                           fillColor: ColorConstant.appWhite,
-                          borderColor: ColorConstant.grey,
+                          borderColor: ColorConstant.appgrey,
                           borderWidth: 2.px,
                           autoFocus: false,
                           hintFontSize: 14.px,
-                          fontColor: ColorConstant.black,
+                          fontColor: ColorConstant.appBlack,
                           inputFormatters: [
                             LengthLimitingTextInputFormatter(15),
                           ],
@@ -244,7 +244,7 @@ class SignUpPage extends StatelessWidget {
                           hint: StringConstant.enterPassword,
                           fontSize: 15.px,
                           fillColor: ColorConstant.appWhite,
-                          borderColor: ColorConstant.grey,
+                          borderColor: ColorConstant.appgrey,
                           borderWidth: 2.px,
                           autoFocus: false,
                           isObscureText: controller.isPasswordVisible,
@@ -258,11 +258,11 @@ class SignUpPage extends StatelessWidget {
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined,
                                 size: 25.px,
-                                color: ColorConstant.grey,
+                                color: ColorConstant.appgrey,
                               ),
                             ),
                           ),
-                          fontColor: ColorConstant.black,
+                          fontColor: ColorConstant.appBlack,
                           inputFormatters: [
                             LengthLimitingTextInputFormatter(15),
                           ],
@@ -278,7 +278,7 @@ class SignUpPage extends StatelessWidget {
                           hint: StringConstant.enterCPassword,
                           fontSize: 15.px,
                           fillColor: ColorConstant.appWhite,
-                          borderColor: ColorConstant.grey,
+                          borderColor: ColorConstant.appgrey,
                           borderWidth: 2.px,
                           autoFocus: false,
                           isObscureText: controller.isCPasswordVisible,
@@ -292,11 +292,11 @@ class SignUpPage extends StatelessWidget {
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined,
                                 size: 25.px,
-                                color: ColorConstant.grey,
+                                color: ColorConstant.appgrey,
                               ),
                             ),
                           ),
-                          fontColor: ColorConstant.black,
+                          fontColor: ColorConstant.appBlack,
                           inputFormatters: [
                             LengthLimitingTextInputFormatter(15),
                           ],
@@ -323,7 +323,7 @@ class SignUpPage extends StatelessWidget {
             ),
           ),
         ),
-        controller.isLoading ? AppLoader() : SizedBox(),
+        controller.isLoading ? const AppLoader() : const SizedBox(),
       ],
     );
   }

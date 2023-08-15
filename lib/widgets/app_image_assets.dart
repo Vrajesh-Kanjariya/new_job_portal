@@ -9,22 +9,16 @@ class AppImageAsset extends StatelessWidget {
   final String? image;
   final bool isWebImage;
   final double? height;
-  final double? webHeight;
   final double? width;
-  final double? webWidth;
   final Color? color;
   final BoxFit? fit;
-  final BoxFit? webFit;
 
   const AppImageAsset({
     Key? key,
     @required this.image,
-    this.webFit,
     this.fit,
-    this.height,
-    this.webHeight,
-    this.width,
-    this.webWidth,
+    this.height = 20,
+    this.width = 20,
     this.color,
     this.isWebImage = false,
   }) : super(key: key);
@@ -34,9 +28,9 @@ class AppImageAsset extends StatelessWidget {
     return isWebImage
         ? CachedNetworkImage(
             imageUrl: image!,
-            height: webHeight,
-            width: webWidth,
-            fit: webFit ?? BoxFit.cover,
+            height: height,
+            width: width,
+            fit: fit ?? BoxFit.cover,
             placeholder: (context, url) => const AppLoader(),
             errorWidget: (context, url, error) => const AppImageAsset(
               image: ImageConstant.userAvatar,

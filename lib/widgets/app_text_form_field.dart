@@ -111,10 +111,7 @@ class AppTextFormField extends StatelessWidget {
             textAlign: textAlign,
             inputFormatters: inputFormatters,
             autofocus: autoFocus,
-            style: Theme.of(context)
-                .textTheme
-                .headline3!
-                .copyWith(fontSize: fontSize, color: fontColor, fontWeight: fontWeight),
+            style: TextStyle(fontSize: fontSize, color: fontColor, fontWeight: fontWeight),
             decoration: isDecoration
                 ? InputDecoration(
                     // hintText: hint,

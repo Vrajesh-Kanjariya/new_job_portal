@@ -114,7 +114,7 @@ class HomePage extends StatelessWidget {
                                       fontSize: 18.px,
                                       fontWeight: FontWeight.w600,
                                       maxLines: 1,
-                                      fontColor: ColorConstant.black,
+                                      fontColor: ColorConstant.appBlack,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     AppText(
@@ -173,7 +173,7 @@ class HomePage extends StatelessWidget {
                                           text: '/ mo',
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
-                                            color: ColorConstant.black,
+                                            color: ColorConstant.appBlack,
                                             fontFamily: AppTheme.defaultFont,
                                             fontSize: 16.0
                                           )

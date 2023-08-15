@@ -33,7 +33,7 @@ class AppElevatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      margin: EdgeInsets.symmetric(horizontal: margin),
+      margin: EdgeInsets.symmetric(horizontal: margin,vertical: 10),
       width: width,
       decoration: BoxDecoration(
         // color: ColorConstant.primary,

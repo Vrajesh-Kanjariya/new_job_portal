@@ -11,7 +11,6 @@ import '../../constant/string_constant.dart';
 import '../../controller/sign_in_controller.dart';
 import '../../routes/app_navigation.dart';
 import '../../widgets/app_elevated_button.dart';
-import '../../widgets/app_error_text.dart';
 import '../../widgets/app_image_assets.dart';
 import '../../widgets/app_text.dart';
 import '../../widgets/app_text_form_field.dart';
@@ -78,7 +77,7 @@ class SignInPage extends StatelessWidget {
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 10.px, vertical: 8.px),
                           decoration:
-                              BoxDecoration(borderRadius: BorderRadius.circular(8.px), color: ColorConstant.lightBlue),
+                              BoxDecoration(borderRadius: BorderRadius.circular(8.px), color: ColorConstant.lightPurple),
                           child: AppText(
                             text: StringConstant.getStarted,
                             fontColor: ColorConstant.appWhite,
@@ -120,8 +119,8 @@ class SignInPage extends StatelessWidget {
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                       colors: [
-                        ColorConstant.lightBlue,
-                        ColorConstant.lightBlue,
+                        ColorConstant.lightPurple,
+                        ColorConstant.lightPurple,
                       ],
                     ),
                   ),
@@ -165,11 +164,11 @@ class SignInPage extends StatelessWidget {
                           hint: StringConstant.enterEmail,
                           fontSize: 15.px,
                           fillColor: ColorConstant.appWhite,
-                          borderColor: ColorConstant.grey,
+                          borderColor: ColorConstant.appgrey,
                           borderWidth: 2.px,
                           autoFocus: false,
                           hintFontSize: 14.px,
-                          fontColor: ColorConstant.black,
+                          fontColor: ColorConstant.appBlack,
                           inputFormatters: [
                             LengthLimitingTextInputFormatter(50),
                           ],
@@ -186,7 +185,7 @@ class SignInPage extends StatelessWidget {
                           hint: StringConstant.enterPassword,
                           fontSize: 15.px,
                           fillColor: ColorConstant.appWhite,
-                          borderColor: ColorConstant.grey,
+                          borderColor: ColorConstant.appgrey,
                           borderWidth: 2.px,
                           autoFocus: false,
                           isObscureText: controller.isPasswordVisible,
@@ -200,11 +199,11 @@ class SignInPage extends StatelessWidget {
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined,
                                 size: 25.px,
-                                color: ColorConstant.grey,
+                                color: ColorConstant.appgrey,
                               ),
                             ),
                           ),
-                          fontColor: ColorConstant.black,
+                          fontColor: ColorConstant.appBlack,
                           inputFormatters: [LengthLimitingTextInputFormatter(15)],
                           keyboardType: TextInputType.text,
                           errorText: controller.passwordError,

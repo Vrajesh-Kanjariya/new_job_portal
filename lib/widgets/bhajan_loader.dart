@@ -1,11 +1,5 @@
-import 'dart:ui';
 
-import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-import 'package:new_job_portal/constant/image_constant.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../constant/color_constant.dart';
 
 // class BhajanLoader extends StatelessWidget {
 //   final Color loaderColor;

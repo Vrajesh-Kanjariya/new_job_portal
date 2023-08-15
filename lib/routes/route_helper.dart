@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:new_job_portal/pages/job_details_page/job_details_page.dart';
 
 import '../../pages/welcome/welcome_page.dart';
 import '../../routes/route_constant.dart';
@@ -23,6 +24,7 @@ class RouteHelper {
   static String getFilterRoute() => RouteConstant.filter;
   static String getFavouriteRoute() => RouteConstant.favourite;
   static String getProfileRoute() => RouteConstant.profile;
+  static String getJobDetailsRoute() => RouteConstant.jobDetails;
 
   static List<GetPage> routes = [
     GetPage(name: RouteConstant.noInternet, page: () => const NoInternetConnection()),
@@ -35,5 +37,6 @@ class RouteHelper {
     GetPage(name: RouteConstant.filter, page: () => const FilterPage()),
     GetPage(name: RouteConstant.favourite, page: () => const FavouritePage()),
     GetPage(name: RouteConstant.profile, page: () => const ProfilePage()),
+    GetPage(name: RouteConstant.jobDetails, page: () => const JobDetailsPage()),
   ];
 }

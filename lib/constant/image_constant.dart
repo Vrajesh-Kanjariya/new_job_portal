@@ -7,7 +7,7 @@ class ImageConstant {
   static const String animationPath = 'assets/animation/';
 
   //     ======================= Images =======================     //
-  static const appLogo = '${imagePath}app_logo.png';
+  static const appLogo = '${imagePath}logo.png';
   static const userAvatar = '${imagePath}avatar.png';
   static const network = '${imagePath}network.png';
   static const loginOne = '${imagePath}login-1.png';
@@ -25,6 +25,7 @@ class ImageConstant {
   static const search = '${iconPath}search.png';
   static const filter = '${iconPath}filter.png';
   static const mapMarker = '${iconPath}map_marker.png';
+  static const bookmark = '${iconPath}bookmark.png';
 
 
   //     ======================= Animations =======================     //

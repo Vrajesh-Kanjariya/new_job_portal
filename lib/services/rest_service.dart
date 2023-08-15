@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
@@ -10,7 +9,6 @@ import 'package:new_job_portal/utils/string_extensions.dart';
 import '../../services/connectivity_service.dart';
 import '../../utils/shared_preference.dart';
 import '../../utils/utils.dart';
-import '../utils/global.dart';
 
 class RestConstants {
   RestConstants._privateConstructor();
@@ -42,7 +40,7 @@ class RestServices {
       // 'accessStatus': Global.getAccessStatus(),
       // 'Content-Type': 'application/json',
       // 'Accept': 'application/json',
-      if (token != null) 'Authorization': '$token',
+      if (token != null) 'Authorization': token,
     };
   }
 

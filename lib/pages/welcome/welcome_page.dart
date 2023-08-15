@@ -1,12 +1,8 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:new_job_portal/routes/app_navigation.dart';
 import 'package:new_job_portal/utils/utils.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
-import '../../constant/color_constant.dart';
 import '../../constant/image_constant.dart';
 import '../../constant/string_constant.dart';
 import '../../controller/welcome_controller.dart';

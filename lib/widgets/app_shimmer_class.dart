@@ -16,7 +16,7 @@ class ShimmerEffectView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: ColorConstant.black.withOpacity(0.2),
+      baseColor: ColorConstant.appBlack.withOpacity(0.2),
       highlightColor: ColorConstant.appWhite,
       child: Container(
         height: height ?? 30.px,

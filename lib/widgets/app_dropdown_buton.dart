@@ -90,7 +90,7 @@ class AppDropdownButton extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     fontSize: 16,
-                    fontColor: ColorConstant.black,
+                    fontColor: ColorConstant.appBlack,
                   ),
                 ),
               ),

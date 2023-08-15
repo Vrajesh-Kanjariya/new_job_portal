@@ -52,8 +52,4 @@ class DashboardPage extends StatelessWidget {
       ],
     );
   }
-
-  _homeBody(BuildContext context, DashboardController controller) {
-
-  }
 }
