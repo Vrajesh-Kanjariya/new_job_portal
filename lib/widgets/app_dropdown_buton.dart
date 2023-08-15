@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:new_job_portal/widgets/app_text.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../constant/color_constant.dart';
 
@@ -65,79 +66,80 @@ class AppDropdownButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
-      child: DropdownButton2(
-        isExpanded: true,
-        hint: Container(
-          alignment: hintAlignment,
-          child: AppText(
+      child: SizedBox(
+        height: 50,
+        child: DropdownButton2(
+          isExpanded: true,
+          hint: AppText(
             text: hint,
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
-            fontSize: 16,
+            fontSize: 12,
             fontColor: ColorConstant.hintColor,
           ),
-        ),
-        value: value,
-        items: dropdownItems
-            .map(
-              (item) => DropdownMenuItem<String>(
-                value: item,
-                child: Container(
-                  width: double.infinity,
-                  alignment: valueAlignment,
-                  child: AppText(
-                    text: item,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    fontSize: 16,
-                    fontColor: ColorConstant.appBlack,
+          value: value,
+          items: dropdownItems
+              .map(
+                (item) => DropdownMenuItem<String>(
+                  value: item,
+                  child: Container(
+                    width: double.infinity,
+                    alignment: valueAlignment,
+                    child: AppText(
+                      text: item,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      fontSize: 13,
+                      fontColor: ColorConstant.appBlack,
+                    ),
                   ),
                 ),
-              ),
-            )
-            .toList(),
-        onChanged: onChanged,
-        selectedItemBuilder: selectedItemBuilder,
-        iconStyleData: IconStyleData(
-          icon: Padding(
-            padding: const EdgeInsets.only(right: 24),
-            child: icon ?? const Icon(Icons.expand_more),
+              )
+              .toList(),
+          onChanged: onChanged,
+          selectedItemBuilder: selectedItemBuilder,
+          iconStyleData: IconStyleData(
+            icon: Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: icon ?? const Icon(Icons.expand_more),
+            ),
+            iconSize: iconSize ?? 22,
+            iconEnabledColor: iconEnabledColor,
+            iconDisabledColor: iconDisabledColor,
           ),
-          iconSize: iconSize ?? 22,
-          iconEnabledColor: iconEnabledColor,
-          iconDisabledColor: iconDisabledColor,
-        ),
-        buttonStyleData: ButtonStyleData(
-          height: buttonHeight ?? 54,
-          width: buttonWidth ?? 140,
-          padding: buttonPadding ?? const EdgeInsets.fromLTRB(24, 15, 0, 18),
-          decoration: buttonDecoration ??
-              BoxDecoration(
-                color: ColorConstant.appWhite,
-                borderRadius: BorderRadius.circular(50),
-              ),
-          elevation: buttonElevation,
-        ),
-        dropdownStyleData: DropdownStyleData(
-          maxHeight: dropdownHeight ?? 200,
-          width: dropdownWidth ?? 300,
-          padding: dropdownPadding,
-          decoration: dropdownDecoration ??
-              BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-              ),
-          elevation: dropdownElevation ?? 8,
-          scrollbarTheme: ScrollbarThemeData(
-            radius: scrollbarRadius ?? const Radius.circular(40),
-            thickness: MaterialStatePropertyAll(scrollbarThickness),
-            thumbVisibility: MaterialStatePropertyAll(scrollbarAlwaysShow),
+          buttonStyleData: ButtonStyleData(
+            height: buttonHeight ?? 54,
+            width: buttonWidth ?? 140,
+            padding: buttonPadding ?? const EdgeInsets.only(left: 12),
+            decoration: buttonDecoration ??
+                BoxDecoration(
+                  border: Border.all(color: ColorConstant.border, width: 2.px),
+                  color: ColorConstant.appWhite,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+            elevation: buttonElevation,
           ),
-          isOverButton: false,
-        ),
-        isDense: false,
-        menuItemStyleData: MenuItemStyleData(
-          height: itemHeight ?? 52,
-          padding: itemPadding ?? const EdgeInsets.only(left: 14, right: 14),
+          dropdownStyleData: DropdownStyleData(
+            maxHeight: dropdownHeight ?? 200,
+            width: dropdownWidth ?? 380,
+            padding: dropdownPadding,
+            decoration: dropdownDecoration ??
+                BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+            elevation: dropdownElevation ?? 8,
+            scrollbarTheme: ScrollbarThemeData(
+              radius: scrollbarRadius ?? const Radius.circular(40),
+              thickness: MaterialStatePropertyAll(scrollbarThickness),
+              thumbVisibility: MaterialStatePropertyAll(scrollbarAlwaysShow),
+            ),
+            isOverButton: false,
+          ),
+          isDense: false,
+          menuItemStyleData: MenuItemStyleData(
+            height: itemHeight ?? 52,
+            padding: itemPadding ?? const EdgeInsets.only(left: 14, right: 14),
+          ),
         ),
       ),
     );

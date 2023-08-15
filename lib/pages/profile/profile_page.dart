@@ -93,7 +93,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-   buildProfileDetailsView() {
+  buildProfileDetailsView() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.px),
       color: const Color(0xFFFAFAFA),
@@ -132,8 +132,7 @@ class ProfilePage extends StatelessWidget {
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 20.px, vertical: 10.px),
                             decoration: BoxDecoration(
-                                color: ColorConstant.blueText,
-                                borderRadius: BorderRadius.circular(10.px)),
+                                color: ColorConstant.blueText, borderRadius: BorderRadius.circular(10.px)),
                             child: const AppText(
                               text: 'Continue',
                               fontColor: Colors.white,
@@ -176,8 +175,7 @@ class ProfilePage extends StatelessWidget {
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 20.px, vertical: 10.px),
                             decoration: BoxDecoration(
-                                color: ColorConstant.blueText,
-                                borderRadius: BorderRadius.circular(10.px)),
+                                color: ColorConstant.blueText, borderRadius: BorderRadius.circular(10.px)),
                             child: const AppText(
                               text: 'Continue',
                               fontColor: Colors.white,
@@ -197,33 +195,21 @@ class ProfilePage extends StatelessWidget {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
                 padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
-                decoration:
-                    BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.tv,
-                      size: 24.px,
-                    ),
-                    SizedBox(
-                      width: 12.px,
-                    ),
-                    AppText(
-                      text: 'My Activity',
-                    ),
-                    Spacer(),
-                    Icon(
-                      Icons.arrow_forward_ios_outlined,
-                      size: 24.px,
-                    ),
+                    Icon(Icons.tv, size: 24.px),
+                    SizedBox(width: 12.px),
+                    const AppText(text: 'My Activity'),
+                    const Spacer(),
+                    Icon(Icons.arrow_forward_ios_outlined, size: 24.px),
                   ],
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
                 padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
-                decoration:
-                    BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
                 child: Row(
                   children: [
                     AppImageAsset(
@@ -231,17 +217,10 @@ class ProfilePage extends StatelessWidget {
                       width: 24.px,
                       height: 24.px,
                     ),
-                    SizedBox(
-                      width: 12.px,
-                    ),
-                    AppText(
-                      text: 'My Location',
-                    ),
-                    Spacer(),
-                    Icon(
-                      Icons.arrow_forward_ios_outlined,
-                      size: 24.px,
-                    ),
+                    SizedBox(width: 12.px),
+                    const AppText(text: 'My Location'),
+                    const Spacer(),
+                    Icon(Icons.arrow_forward_ios_outlined, size: 24.px),
                   ],
                 ),
               ),

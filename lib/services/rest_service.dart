@@ -25,6 +25,9 @@ class RestConstants {
   final String login = 'login';
   final String register = 'register';
   final String getJobs = 'getJobs';
+  final String getCountry = 'getcountry';
+  final String getState = 'getstate';
+  final String getCity = 'getcity';
 }
 
 class RestServices {

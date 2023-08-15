@@ -40,6 +40,7 @@ class AppTextFormField extends StatelessWidget {
   final double? cursorHeight;
   final double cursorWidth;
   final double borderWidth;
+  final double height;
   final double? iconWidth;
   final String errorText;
 
@@ -60,7 +61,7 @@ class AppTextFormField extends StatelessWidget {
     this.readOnly = false,
     required this.hint,
     this.inputFormatters,
-    required this.fontSize,
+    this.fontSize = 15,
     this.hintFontSize = 15,
     this.isBorder = true,
     this.autoFocus = false,
@@ -79,6 +80,7 @@ class AppTextFormField extends StatelessWidget {
     this.fontColor = ColorConstant.offWhite,
     this.hintColor = ColorConstant.textGrey,
     this.borderWidth = 0,
+    this.height = 64,
     this.iconWidth,
     this.errorText = '',
   }) : super(key: key);
@@ -90,6 +92,7 @@ class AppTextFormField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
+          height: height,
           padding: EdgeInsets.symmetric(horizontal: 6.px,vertical: 4.px),
           decoration: BoxDecoration(
             border: Border.all(color: ColorConstant.border, width: 2.px),
@@ -124,14 +127,6 @@ class AppTextFormField extends StatelessWidget {
                         color: hintColor,
                         fontFamily: AppTheme.defaultFont,
                         fontStyle: FontStyle.normal),
-                    // hintMaxLines: hintMaxLines,
-                    // hintStyle: TextStyle(
-                    //     fontSize: hintFontSize.px,
-                    //     height: 0.9,
-                    //     fontWeight: FontWeight.w500,
-                    //     color: hintColor,
-                    //     fontFamily: AppTheme.defaultFont,
-                    //     fontStyle: FontStyle.normal),
                     filled: true,
                     suffixIcon: suffixIcon,
                     suffixIconConstraints:
@@ -139,39 +134,7 @@ class AppTextFormField extends StatelessWidget {
                     prefixIcon: prefixIcon,
                     fillColor: isDecoration ? fillColor : ColorConstant.transparent,
                     prefixIconConstraints: BoxConstraints(minWidth: 24.px, maxHeight: 24.px),
-                    // contentPadding:
-                    //     contentPadding ?? EdgeInsets.symmetric(horizontal: 8.px, vertical: 8.px),
-                    border: /*isBorder
-                        ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(borderRadius.px),
-                            borderSide: BorderSide(color: borderColor, width: borderWidth),
-                          )
-                        : InputBorder.none,
-                    disabledBorder: isBorder
-                        ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(borderRadius.px),
-                            borderSide: BorderSide(color: borderColor, width: borderWidth),
-                          )
-                        : InputBorder.none,
-                    enabledBorder: isEnableBorder
-                        ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(borderRadius.px),
-                            borderSide: BorderSide(color: borderColor, width: borderWidth),
-                          )
-                        : InputBorder.none,
-                    errorBorder: isBorder
-                        ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(borderRadius.px),
-                            borderSide: BorderSide(color: borderColor, width: borderWidth),
-                          )
-                        : InputBorder.none,
-                    focusedBorder: isEnableBorder
-                        ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(borderRadius.px),
-                            borderSide: BorderSide(color: borderColor, width: borderWidth),
-                          )
-                        : */
-                        InputBorder.none,
+                    border: InputBorder.none,
                   )
                 : InputDecoration(
                     hintText: hint,
