@@ -9,7 +9,7 @@ import '../utils/utils.dart';
 
 class HomeController extends GetxController{
   bool isLoading = false;
-  GetJobResponse getJobResponse = GetJobResponse();
+  GetJobResponse? getJobResponse;
 
   Future<void> getJobs() async {
     try {

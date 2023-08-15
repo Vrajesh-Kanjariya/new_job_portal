@@ -24,8 +24,7 @@ class ProfilePage extends StatelessWidget {
 
   _profileBody() {
     return SafeArea(
-      child: ListView(
-        shrinkWrap: true,
+      child: Column(
         children: [
           SizedBox(
             height: 56.px,
@@ -89,50 +88,164 @@ class ProfilePage extends StatelessWidget {
           fontColor: ColorConstant.textGrey,
           fontSize: 16.px,
         ),
+        SizedBox(height: 12.px),
       ],
     );
   }
 
-  Padding buildProfileDetailsView() {
-    return Padding(
+   buildProfileDetailsView() {
+    return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.px),
-      child: Row(
+      color: const Color(0xFFFAFAFA),
+      child: Column(
         children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.px),
-              ),
-              color: Colors.white,
-              child: Column(
-                children: [
-                  AppImageAsset(
-                    image: ImageConstant.customer,
-                    width: 30.px,
-                    height: 30.px,
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 5.px, vertical: 5.px),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.px),
+                    ),
+                    color: Colors.white,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
+                      child: Column(
+                        children: [
+                          AppImageAsset(
+                            image: ImageConstant.customer,
+                            width: 30.px,
+                            height: 30.px,
+                          ),
+                          SizedBox(height: 8.px),
+                          AppText(
+                            text: 'Set your \n profile details',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            fontColor: ColorConstant.appBlack,
+                            fontSize: 16.px,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          SizedBox(height: 8.px),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20.px, vertical: 10.px),
+                            decoration: BoxDecoration(
+                                color: ColorConstant.blueText,
+                                borderRadius: BorderRadius.circular(10.px)),
+                            child: const AppText(
+                              text: 'Continue',
+                              fontColor: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ],
+                ),
               ),
-            ),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 5.px, vertical: 5.px),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.px),
+                    ),
+                    color: Colors.white,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
+                      child: Column(
+                        children: [
+                          AppImageAsset(
+                            image: ImageConstant.customer,
+                            width: 30.px,
+                            height: 30.px,
+                          ),
+                          SizedBox(height: 8.px),
+                          AppText(
+                            text: 'Upload your \n resume',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            fontColor: ColorConstant.appBlack,
+                            fontSize: 16.px,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          SizedBox(height: 8.px),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20.px, vertical: 10.px),
+                            decoration: BoxDecoration(
+                                color: ColorConstant.blueText,
+                                borderRadius: BorderRadius.circular(10.px)),
+                            child: const AppText(
+                              text: 'Continue',
+                              fontColor: Colors.white,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.px),
+          ListView(
+            shrinkWrap: true,
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
+                padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
+                decoration:
+                    BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.tv,
+                      size: 24.px,
+                    ),
+                    SizedBox(
+                      width: 12.px,
+                    ),
+                    AppText(
+                      text: 'My Activity',
+                    ),
+                    Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios_outlined,
+                      size: 24.px,
+                    ),
+                  ],
+                ),
               ),
-              color: Colors.white,
-              child: Column(
-                children: [
-                  AppImageAsset(
-                    image: ImageConstant.customer,
-                    width: 30.px,
-                    height: 30.px,
-                  ),
-                ],
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
+                padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
+                decoration:
+                    BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
+                child: Row(
+                  children: [
+                    AppImageAsset(
+                      image: ImageConstant.mapMarker,
+                      width: 24.px,
+                      height: 24.px,
+                    ),
+                    SizedBox(
+                      width: 12.px,
+                    ),
+                    AppText(
+                      text: 'My Location',
+                    ),
+                    Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios_outlined,
+                      size: 24.px,
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),
