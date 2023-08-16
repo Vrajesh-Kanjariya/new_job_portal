@@ -28,6 +28,7 @@ class RestConstants {
   final String getCountry = 'getcountry';
   final String getState = 'getstate';
   final String getCity = 'getcity';
+  final String saveUnSaveJob = 'saveJob';
 }
 
 class RestServices {

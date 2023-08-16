@@ -9,6 +9,7 @@ class SharedPrefService {
 
   final String isAuthenticateUser = 'authenticateUser';
   final String authenticationToken = 'authenticationToken';
+  final String userDataKey = 'userData';
 
   Future<bool> checkPrefKey(String key) async {
     final prefs = await SharedPreferences.getInstance();

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:new_job_portal/model/sign_in_response.dart';
 import 'package:new_job_portal/routes/app_navigation.dart';
 import 'package:new_job_portal/services/rest_service.dart';
 import 'package:new_job_portal/services/share_preference.dart';
@@ -57,6 +58,9 @@ class SignInController extends GetxController {
         if (responseMap.containsKey('status') && responseMap['status']) {
           SharedPrefService.instance.setPrefBoolValue(SharedPrefService.instance.isAuthenticateUser, true);
           SharedPrefService.instance.setPrefStringValue(SharedPrefService.instance.authenticationToken, responseMap['token']);
+          SharedPrefService.instance.setPrefStringValue(SharedPrefService.instance.userDataKey, jsonEncode(responseMap['userdata']));
+          logs("Json Encoded Value --> ${jsonEncode(responseMap['userdata'])}");
+          userdata = responseMap['userdata'];
           responseMap['message'].toString().showSuccess();
           emailController.clear();
           passwordController.clear();

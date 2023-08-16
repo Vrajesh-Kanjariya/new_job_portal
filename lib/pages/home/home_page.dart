@@ -88,7 +88,7 @@ class HomePage extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () => gotoJobDetails(),
+                        onTap: () => gotoJobDetails(controller.getJobResponse!.jobs![index]),
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 12.px),
                           child: Card(

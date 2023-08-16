@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:new_job_portal/model/sign_in_response.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,6 +14,7 @@ const String aboutTemple = 'About Temple';
 const String clock = 'Clock';
 const String countryCode = '91';
 bool isAuthUser = false;
+Userdata? userdata;
 
 
 void logs(String message) {

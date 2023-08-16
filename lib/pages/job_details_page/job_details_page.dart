@@ -18,20 +18,21 @@ class JobDetailsPage extends StatelessWidget {
         init: JobDetailsController(),
         builder: (JobDetailsController jobDetailsController) {
           return Scaffold(
-            appBar: appBar(),
+            appBar: appBar(jobDetailsController),
             body: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               shrinkWrap: true,
               children: [
-                appLogoView(),
-                const AppText(
-                  text: 'Product Designer',
+                appLogoView(jobDetailsController),
+                AppText(
+                  text: jobDetailsController.job!.title,
                   textAlign: TextAlign.center,
+                  maxLines: 2,
                   fontWeight: FontWeight.w600,
                 ),
                 const SizedBox(height: 8),
-                const AppText(
-                  text: 'Meta',
+                AppText(
+                  text: jobDetailsController.job!.company!.first.companyName,
                   textAlign: TextAlign.center,
                   fontColor: ColorConstant.appgrey,
                 ),
@@ -76,8 +77,8 @@ class JobDetailsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       jobDetailsView(image: ImageConstant.email, title: 'Applicant', subTitle: '100'),
-                      jobDetailsView(image: ImageConstant.email, title: 'Job Type', subTitle: 'Full time'),
-                      jobDetailsView(image: ImageConstant.email, title: 'Salaries', subTitle: "\$340K-420K"),
+                      jobDetailsView(image: ImageConstant.email, title: 'Job Type', subTitle: jobDetailsController.job!.jobType!),
+                      jobDetailsView(image: ImageConstant.email, title: 'Salaries', subTitle: jobDetailsController.job!.salary!),
                     ],
                   ),
                 ),
@@ -121,16 +122,17 @@ class JobDetailsPage extends StatelessWidget {
         });
   }
 
-  appBar() {
+  appBar(JobDetailsController jobDetailsController) {
     return AppAppBar(
       appbarTitle: 'Job detail'.toUpperCase(),
       titleFontSize: 14,
       isRightIcon: true,
       rightIcon: ImageConstant.bookmark,
+      rightIconTap: () => jobDetailsController.saveUnSaveJobs(jobDetailsController.job!.jobId),
     );
   }
 
-  appLogoView() {
+  appLogoView(JobDetailsController jobDetailsController) {
     return Container(
       height: 80,
       alignment: Alignment.center,
@@ -146,8 +148,9 @@ class JobDetailsPage extends StatelessWidget {
           ),
         ],
       ),
-      child: const AppImageAsset(
-        image: ImageConstant.logo,
+      child: AppImageAsset(
+        image: '${ImageConstant.baseUrl}${jobDetailsController.job!.company!.first.logo}',
+        isWebImage: true,
         height: 40,
         width: 40,
       ),

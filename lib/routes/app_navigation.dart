@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:new_job_portal/model/get_job_response.dart';
 
 import 'route_helper.dart';
 
@@ -46,6 +47,6 @@ gotoProfile(){
   Get.toNamed(RouteHelper.getProfileRoute());
 }
 
-gotoJobDetails(){
-  Get.toNamed(RouteHelper.getJobDetailsRoute());
+gotoJobDetails(Job job){
+  Get.toNamed(RouteHelper.getJobDetailsRoute(),arguments: {'Job':job});
 }

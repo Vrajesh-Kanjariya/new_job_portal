@@ -33,6 +33,7 @@ class GetJobResponse {
 }
 
 class Job {
+  String? jobId;
   String? title;
   List<Company>? company;
   String? category;
@@ -51,6 +52,7 @@ class Job {
   DateTime? entryDate;
 
   Job({
+    this.jobId,
     this.title,
     this.company,
     this.category,
@@ -70,6 +72,7 @@ class Job {
   });
 
   factory Job.fromJson(Map<String, dynamic> json) => Job(
+    jobId: json["job_id"],
     title: json["title"],
     company: List<Company>.from(json["company"].map((x) => Company.fromJson(x))),
     category: json["category"],
@@ -89,6 +92,7 @@ class Job {
   );
 
   Map<String, dynamic> toJson() => {
+    "job_id": jobId,
     "title": title,
     "company": List<dynamic>.from(company!.map((x) => x.toJson())),
     "category": category,

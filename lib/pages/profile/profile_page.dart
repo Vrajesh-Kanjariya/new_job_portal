@@ -25,29 +25,19 @@ class ProfilePage extends StatelessWidget {
   _profileBody() {
     return SafeArea(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
             height: 56.px,
             width: Device.width,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(),
-                Center(
-                  child: AppText(
-                    text: StringConstant.profile.toUpperCase(),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18.px,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(14.px),
-                  child: AppImageAsset(
-                    image: ImageConstant.setting,
-                    width: 30.px,
-                    height: 30.px,
-                  ),
+                AppText(
+                  text: StringConstant.profile.toUpperCase(),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18.px,
                 ),
               ],
             ),
@@ -61,6 +51,7 @@ class ProfilePage extends StatelessWidget {
 
   Column buildProfileView() {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         CircleAvatar(
           radius: 60.px,
@@ -98,6 +89,7 @@ class ProfilePage extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 8.px),
       color: const Color(0xFFFAFAFA),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             children: [
@@ -110,7 +102,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                     color: Colors.white,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
+                      padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
                       child: Column(
                         children: [
                           AppImageAsset(
@@ -118,7 +110,7 @@ class ProfilePage extends StatelessWidget {
                             width: 30.px,
                             height: 30.px,
                           ),
-                          SizedBox(height: 8.px),
+                          SizedBox(height: 16.px),
                           AppText(
                             text: 'Set your \n profile details',
                             overflow: TextOverflow.ellipsis,
@@ -128,7 +120,7 @@ class ProfilePage extends StatelessWidget {
                             fontSize: 16.px,
                             fontWeight: FontWeight.w500,
                           ),
-                          SizedBox(height: 8.px),
+                          SizedBox(height: 16.px),
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 20.px, vertical: 10.px),
                             decoration: BoxDecoration(
@@ -153,7 +145,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                     color: Colors.white,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
+                      padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
                       child: Column(
                         children: [
                           AppImageAsset(
@@ -161,9 +153,9 @@ class ProfilePage extends StatelessWidget {
                             width: 30.px,
                             height: 30.px,
                           ),
-                          SizedBox(height: 8.px),
+                          SizedBox(height: 16.px),
                           AppText(
-                            text: 'Upload your \n resume',
+                            text: 'Change your \n password',
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
                             maxLines: 2,
@@ -171,7 +163,7 @@ class ProfilePage extends StatelessWidget {
                             fontSize: 16.px,
                             fontWeight: FontWeight.w500,
                           ),
-                          SizedBox(height: 8.px),
+                          SizedBox(height: 16.px),
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 20.px, vertical: 10.px),
                             decoration: BoxDecoration(
@@ -200,7 +192,7 @@ class ProfilePage extends StatelessWidget {
                   children: [
                     Icon(Icons.tv, size: 24.px),
                     SizedBox(width: 12.px),
-                    const AppText(text: 'My Activity'),
+                    const AppText(text: 'Saved Job'),
                     const Spacer(),
                     Icon(Icons.arrow_forward_ios_outlined, size: 24.px),
                   ],
@@ -218,7 +210,79 @@ class ProfilePage extends StatelessWidget {
                       height: 24.px,
                     ),
                     SizedBox(width: 12.px),
-                    const AppText(text: 'My Location'),
+                    const AppText(text: 'Applied Job'),
+                    const Spacer(),
+                    Icon(Icons.arrow_forward_ios_outlined, size: 24.px),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
+                padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
+                child: Row(
+                  children: [
+                    AppImageAsset(
+                      image: ImageConstant.mapMarker,
+                      width: 24.px,
+                      height: 24.px,
+                    ),
+                    SizedBox(width: 12.px),
+                    const AppText(text: 'Edit Profile'),
+                    const Spacer(),
+                    Icon(Icons.arrow_forward_ios_outlined, size: 24.px),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
+                padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
+                child: Row(
+                  children: [
+                    AppImageAsset(
+                      image: ImageConstant.mapMarker,
+                      width: 24.px,
+                      height: 24.px,
+                    ),
+                    SizedBox(width: 12.px),
+                    const AppText(text: 'Change Password'),
+                    const Spacer(),
+                    Icon(Icons.arrow_forward_ios_outlined, size: 24.px),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
+                padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
+                child: Row(
+                  children: [
+                    AppImageAsset(
+                      image: ImageConstant.mapMarker,
+                      width: 24.px,
+                      height: 24.px,
+                    ),
+                    SizedBox(width: 12.px),
+                    const AppText(text: 'Delete Account'),
+                    const Spacer(),
+                    Icon(Icons.arrow_forward_ios_outlined, size: 24.px),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
+                padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
+                child: Row(
+                  children: [
+                    AppImageAsset(
+                      image: ImageConstant.mapMarker,
+                      width: 24.px,
+                      height: 24.px,
+                    ),
+                    SizedBox(width: 12.px),
+                    const AppText(text: 'Log Out'),
                     const Spacer(),
                     Icon(Icons.arrow_forward_ios_outlined, size: 24.px),
                   ],
