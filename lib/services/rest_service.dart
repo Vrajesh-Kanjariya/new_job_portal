@@ -4,12 +4,12 @@ import 'dart:developer';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:new_job_portal/services/share_preference.dart';
 import 'package:new_job_portal/utils/string_extensions.dart';
 
 import '../../services/connectivity_service.dart';
 import '../../utils/shared_preference.dart';
 import '../../utils/utils.dart';
-import '../utils/global.dart';
 
 class RestConstants {
   RestConstants._privateConstructor();
@@ -25,6 +25,14 @@ class RestConstants {
   //     ======================= API EndPoints =======================     //
   final String login = 'login';
   final String register = 'register';
+  final String getJobs = 'getJobs';
+  final String getCountry = 'getcountry';
+  final String getState = 'getstate';
+  final String getCity = 'getcity';
+  final String getCategory = 'getcategory';
+  final String saveUnSaveJob = 'saveJob';
+  final String getSavedJobs = 'getSavedJobs';
+  final String changePassword = 'change_password';
 }
 
 class RestServices {
@@ -35,22 +43,22 @@ class RestServices {
   Map<String, String> headers = {'Content-Type': 'application/json'};
 
   Future<Map<String, String>> getHeaders() async {
-    String? token = await getPrefStringValue(accessTokenKey);
+    String? token = await getPrefStringValue(SharedPrefService.instance.authenticationToken);
     return {
       // 'accessStatus': Global.getAccessStatus(),
       // 'Content-Type': 'application/json',
       // 'Accept': 'application/json',
-      if (token != null) 'Authorization': 'Bearer $token',
+      if (token != null) 'Authorization': token,
     };
   }
 
   void showRequestAndResponseLogs(http.Response? response, Map<String, Object> requestData) {
     logs('•••••••••• Network logs ••••••••••');
     logs('Request url --> ${response!.request!.url}');
-    logs('Request headers --> $requestData');
+    log('Request headers --> $requestData');
     logs('Status code --> ${response.statusCode}');
     logs('Response headers --> ${response.headers}');
-    logs('Response body --> ${response.body}');
+    log('Response body --> ${response.body}');
     logs('••••••••••••••••••••••••••••••••••');
   }
 

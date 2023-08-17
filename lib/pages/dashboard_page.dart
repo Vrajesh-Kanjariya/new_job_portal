@@ -14,7 +14,6 @@ class DashboardPage extends StatelessWidget {
       builder: (DashboardController controller) {
         return Scaffold(
           body: Container(
-            
             child: controller.pages.elementAt(controller.selectedIndex),
           ),
           bottomNavigationBar: _bottomNavigationBar(controller),
@@ -52,9 +51,5 @@ class DashboardPage extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  _homeBody(BuildContext context, DashboardController controller) {
-
   }
 }

@@ -1,20 +1,14 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:new_job_portal/routes/app_navigation.dart';
 import 'package:new_job_portal/utils/utils.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
-import '../../constant/color_constant.dart';
-import '../../constant/image_constant.dart';
-import '../../constant/string_constant.dart';
-import '../../controller/welcome_controller.dart';
-import '../../widgets/app_elevated_button.dart';
-import '../../widgets/app_image_assets.dart';
-import '../../widgets/app_text.dart';
-import '../../widgets/app_text_form_field.dart';
-import '../../widgets/app_theme.dart';
+import '../constant/image_constant.dart';
+import '../constant/string_constant.dart';
+import '../controller/welcome_controller.dart';
+import '../widgets/app_elevated_button.dart';
+import '../widgets/app_image_assets.dart';
+import '../widgets/app_text.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -24,6 +18,12 @@ class WelcomePage extends StatelessWidget {
     logs('Current screen --> $runtimeType');
     return GetBuilder<WelcomeController>(
       init: WelcomeController(),
+      initState: (state) {
+        Future.delayed(const Duration(milliseconds: 300),() {
+          WelcomeController controller = Get.find<WelcomeController>();
+          controller.getAuthUser();
+        },);
+      },
       builder: (WelcomeController controller) {
         return Scaffold(
           appBar: AppBar(toolbarHeight: 0.0),

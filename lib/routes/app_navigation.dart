@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:new_job_portal/model/get_job_response.dart';
 
 import 'route_helper.dart';
 
@@ -44,4 +45,16 @@ gotoFavourite(){
 
 gotoProfile(){
   Get.toNamed(RouteHelper.getProfileRoute());
+}
+
+gotoJobDetails(Job job){
+  Get.toNamed(RouteHelper.getJobDetailsRoute(),arguments: {'Job':job});
+}
+
+gotoFilterList(List<Job>? jobList){
+  Get.toNamed(RouteHelper.getFilterListRoute(), arguments: {'Job':jobList});
+}
+
+gotoChangePassword(){
+  Get.toNamed(RouteHelper.getChangePasswordRoute());
 }

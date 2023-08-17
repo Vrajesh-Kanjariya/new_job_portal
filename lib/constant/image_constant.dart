@@ -5,9 +5,10 @@ class ImageConstant {
   static const String imagePath = 'assets/images/';
   static const String iconPath = 'assets/icons/';
   static const String animationPath = 'assets/animation/';
+  static const String baseUrl = 'https://nishantthummar.in/extra_web/job_portal_2023/';
 
   //     ======================= Images =======================     //
-  static const appLogo = '${imagePath}app_logo.png';
+  static const appLogo = '${imagePath}logo.png';
   static const userAvatar = '${imagePath}avatar.png';
   static const network = '${imagePath}network.png';
   static const loginOne = '${imagePath}login-1.png';
@@ -22,7 +23,12 @@ class ImageConstant {
   static const home = '${iconPath}home.png';
   static const user = '${iconPath}user.png';
   static const save = '${iconPath}save.png';
+  static const saveFill = '${iconPath}save_fill.png';
   static const search = '${iconPath}search.png';
+  static const filter = '${iconPath}filter.png';
+  static const mapMarker = '${iconPath}map_marker.png';
+  static const setting = '${iconPath}setting.png';
+  static const customer = '${iconPath}customer.png';
 
 
   //     ======================= Animations =======================     //

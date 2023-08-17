@@ -10,4 +10,7 @@ class RouteConstant {
   static const String favourite = '/favourite';
   static const String filter = '/filter';
   static const String profile = '/profile';
+  static const String jobDetails = '/jobDetails';
+  static const String filterList = '/filterList';
+  static const String changePassword = '/changePassword';
 }

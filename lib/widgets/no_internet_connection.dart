@@ -70,7 +70,7 @@ class NoInternetConnection extends StatelessWidget {
                   style: const TextStyle(),
                   child: AppText(
                     text: StringConstant.noInternet,
-                    fontColor: ColorConstant.black,
+                    fontColor: ColorConstant.appBlack,
                     fontSize: 20.px,
                     fontWeight: FontWeight.w500,
                   )),

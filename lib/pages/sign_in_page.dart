@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:new_job_portal/utils/utils.dart';
+import 'package:new_job_portal/widgets/app_loader.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../constant/color_constant.dart';
-import '../../constant/image_constant.dart';
-import '../../constant/string_constant.dart';
-import '../../controller/sign_in_controller.dart';
-import '../../routes/app_navigation.dart';
-import '../../widgets/app_elevated_button.dart';
-import '../../widgets/app_error_text.dart';
-import '../../widgets/app_image_assets.dart';
-import '../../widgets/app_text.dart';
-import '../../widgets/app_text_form_field.dart';
+import '../constant/color_constant.dart';
+import '../constant/image_constant.dart';
+import '../constant/string_constant.dart';
+import '../controller/sign_in_controller.dart';
+import '../routes/app_navigation.dart';
+import '../widgets/app_elevated_button.dart';
+import '../widgets/app_image_assets.dart';
+import '../widgets/app_text.dart';
+import '../widgets/app_text_form_field.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
@@ -23,7 +23,12 @@ class SignInPage extends StatelessWidget {
     logs('Current screen --> $runtimeType');
     return GetBuilder<SignInController>(
       init: SignInController(),
-      builder: (SignInController controller) => Scaffold(body: _signInBody(context, controller)),
+      builder: (SignInController controller) => Scaffold(body: Stack(
+        children: [
+          _signInBody(context, controller),
+          loader(controller.isLoading),
+        ],
+      )),
     );
   }
 
@@ -72,7 +77,7 @@ class SignInPage extends StatelessWidget {
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 10.px, vertical: 8.px),
                           decoration:
-                              BoxDecoration(borderRadius: BorderRadius.circular(8.px), color: ColorConstant.lightBlue),
+                              BoxDecoration(borderRadius: BorderRadius.circular(8.px), color: ColorConstant.lightPurple),
                           child: AppText(
                             text: StringConstant.getStarted,
                             fontColor: ColorConstant.appWhite,
@@ -114,8 +119,8 @@ class SignInPage extends StatelessWidget {
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                       colors: [
-                        ColorConstant.lightBlue,
-                        ColorConstant.lightBlue,
+                        ColorConstant.lightPurple,
+                        ColorConstant.lightPurple,
                       ],
                     ),
                   ),
@@ -159,11 +164,11 @@ class SignInPage extends StatelessWidget {
                           hint: StringConstant.enterEmail,
                           fontSize: 15.px,
                           fillColor: ColorConstant.appWhite,
-                          borderColor: ColorConstant.grey,
+                          borderColor: ColorConstant.appgrey,
                           borderWidth: 2.px,
                           autoFocus: false,
                           hintFontSize: 14.px,
-                          fontColor: ColorConstant.black,
+                          fontColor: ColorConstant.appBlack,
                           inputFormatters: [
                             LengthLimitingTextInputFormatter(50),
                           ],
@@ -180,7 +185,7 @@ class SignInPage extends StatelessWidget {
                           hint: StringConstant.enterPassword,
                           fontSize: 15.px,
                           fillColor: ColorConstant.appWhite,
-                          borderColor: ColorConstant.grey,
+                          borderColor: ColorConstant.appgrey,
                           borderWidth: 2.px,
                           autoFocus: false,
                           isObscureText: controller.isPasswordVisible,
@@ -194,11 +199,11 @@ class SignInPage extends StatelessWidget {
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined,
                                 size: 25.px,
-                                color: ColorConstant.grey,
+                                color: ColorConstant.appgrey,
                               ),
                             ),
                           ),
-                          fontColor: ColorConstant.black,
+                          fontColor: ColorConstant.appBlack,
                           inputFormatters: [LengthLimitingTextInputFormatter(15)],
                           keyboardType: TextInputType.text,
                           errorText: controller.passwordError,
@@ -233,4 +238,6 @@ class SignInPage extends StatelessWidget {
       ],
     );
   }
+
+  Widget loader(bool isLoading) => isLoading ? const AppLoader() : const SizedBox();
 }
