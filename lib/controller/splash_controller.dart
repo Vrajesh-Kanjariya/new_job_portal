@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:new_job_portal/model/sign_in_response.dart';
 import 'package:new_job_portal/routes/app_navigation.dart';
 import 'package:new_job_portal/utils/utils.dart';
 
@@ -16,9 +18,9 @@ class SplashController extends GetxController {
   }
 
   getArguments() async {
-   var user = await getPrefStringValue(SharedPrefService.instance.userDataKey) ?? '';
-    if(user.isNotEmpty){
-      logs("UserData --> $userdata");
+   String signInDataResponse = await getPrefStringValue(SharedPrefService.instance.userDataKey) ?? '';
+    if(signInDataResponse.isNotEmpty){
+      signInData = signInResponseFromJson(jsonDecode(signInDataResponse));
     }
   }
 

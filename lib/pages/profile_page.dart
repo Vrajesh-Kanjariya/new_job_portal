@@ -3,11 +3,12 @@ import 'package:get/get.dart';
 import 'package:new_job_portal/constant/image_constant.dart';
 import 'package:new_job_portal/constant/string_constant.dart';
 import 'package:new_job_portal/controller/profile_controller.dart';
+import 'package:new_job_portal/routes/app_navigation.dart';
 import 'package:new_job_portal/widgets/app_image_assets.dart';
 import 'package:new_job_portal/widgets/app_text.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../constant/color_constant.dart';
+import '../constant/color_constant.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -17,8 +18,19 @@ class ProfilePage extends StatelessWidget {
     return GetBuilder<ProfileController>(
       init: ProfileController(),
       builder: (ProfileController controller) {
-        return Scaffold(body: _profileBody());
+        return Scaffold(appBar: appBar(), body: _profileBody());
       },
+    );
+  }
+
+  appBar() {
+    return AppBar(
+      backgroundColor: Colors.white,
+      title: AppText(
+        text: 'Profile'.toUpperCase(),
+        fontSize: 16.px,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 
@@ -27,21 +39,6 @@ class ProfilePage extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
-            height: 56.px,
-            width: Device.width,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                AppText(
-                  text: StringConstant.profile.toUpperCase(),
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18.px,
-                ),
-              ],
-            ),
-          ),
           buildProfileView(),
           buildProfileDetailsView(),
         ],
@@ -87,7 +84,7 @@ class ProfilePage extends StatelessWidget {
   buildProfileDetailsView() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.px),
-      color: const Color(0xFFFAFAFA),
+      color: ColorConstant.whiteBg,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -124,7 +121,8 @@ class ProfilePage extends StatelessWidget {
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 20.px, vertical: 10.px),
                             decoration: BoxDecoration(
-                                color: ColorConstant.blueText, borderRadius: BorderRadius.circular(10.px)),
+                                color: ColorConstant.blueText,
+                                borderRadius: BorderRadius.circular(10.px)),
                             child: const AppText(
                               text: 'Continue',
                               fontColor: Colors.white,
@@ -164,13 +162,17 @@ class ProfilePage extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           SizedBox(height: 16.px),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 20.px, vertical: 10.px),
-                            decoration: BoxDecoration(
-                                color: ColorConstant.blueText, borderRadius: BorderRadius.circular(10.px)),
-                            child: const AppText(
-                              text: 'Continue',
-                              fontColor: Colors.white,
+                          GestureDetector(
+                            onTap: () => gotoChangePassword(),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 20.px, vertical: 10.px),
+                              decoration: BoxDecoration(
+                                  color: ColorConstant.blueText,
+                                  borderRadius: BorderRadius.circular(10.px)),
+                              child: const AppText(
+                                text: 'Continue',
+                                fontColor: Colors.white,
+                              ),
                             ),
                           )
                         ],
@@ -187,7 +189,8 @@ class ProfilePage extends StatelessWidget {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
                 padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
+                decoration:
+                    BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
                 child: Row(
                   children: [
                     Icon(Icons.tv, size: 24.px),
@@ -201,7 +204,8 @@ class ProfilePage extends StatelessWidget {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
                 padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
+                decoration:
+                    BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
                 child: Row(
                   children: [
                     AppImageAsset(
@@ -219,7 +223,8 @@ class ProfilePage extends StatelessWidget {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
                 padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
+                decoration:
+                    BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
                 child: Row(
                   children: [
                     AppImageAsset(
@@ -234,28 +239,33 @@ class ProfilePage extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
-                padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
-                child: Row(
-                  children: [
-                    AppImageAsset(
-                      image: ImageConstant.mapMarker,
-                      width: 24.px,
-                      height: 24.px,
-                    ),
-                    SizedBox(width: 12.px),
-                    const AppText(text: 'Change Password'),
-                    const Spacer(),
-                    Icon(Icons.arrow_forward_ios_outlined, size: 24.px),
-                  ],
+              GestureDetector(
+                onTap: () => gotoChangePassword(),
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
+                  padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
+                  decoration:
+                      BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
+                  child: Row(
+                    children: [
+                      AppImageAsset(
+                        image: ImageConstant.mapMarker,
+                        width: 24.px,
+                        height: 24.px,
+                      ),
+                      SizedBox(width: 12.px),
+                      const AppText(text: 'Change Password'),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios_outlined, size: 24.px),
+                    ],
+                  ),
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
                 padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
+                decoration:
+                    BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
                 child: Row(
                   children: [
                     AppImageAsset(
@@ -273,7 +283,8 @@ class ProfilePage extends StatelessWidget {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
                 padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
+                decoration:
+                    BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
                 child: Row(
                   children: [
                     AppImageAsset(

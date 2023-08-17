@@ -2,19 +2,16 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:new_job_portal/model/category_response.dart';
 import 'package:new_job_portal/model/country_response.dart';
+import 'package:new_job_portal/model/get_job_response.dart';
+import 'package:new_job_portal/routes/app_navigation.dart';
 import 'package:new_job_portal/services/rest_service.dart';
 import 'package:new_job_portal/utils/string_extensions.dart';
 import 'package:new_job_portal/utils/utils.dart';
 import 'package:new_job_portal/utils/validation_utils.dart';
 
 class FilterController extends GetxController {
-  @override
-  void onInit() {
-    getCountry();
-    super.onInit();
-  }
-
   TextEditingController jobTypeController = TextEditingController();
 
   String jobTypeError = '';
@@ -23,21 +20,33 @@ class FilterController extends GetxController {
   String stateError = '';
   String cityError = '';
 
-  List<String> jobFiled = ['other', 'IT & Networking'];
+
   List<String> countryList = [];
   List<String> stateList = [];
   List<String> cityList = [];
+  List<String> categoryList = [];
   List<Record> allCountryList = [];
   List<Record> allStateList = [];
   List<Record> allCityList = [];
+  List<CategoryRecord> allCategoryList = [];
 
-  String? selectedJobFiled;
   Record? selectedCountry;
   Record? selectedState;
   Record? selectedCity;
+  CategoryRecord? selectedCategory;
+  bool isLoading = false;
+
+  GetJobResponse? getJobResponse;
+
+  @override
+  void onInit() {
+    getCategory();
+    getCountry();
+    super.onInit();
+  }
 
   void jobFiledChange(String? value) {
-    selectedJobFiled = value!;
+    selectedCategory = allCategoryList.firstWhere((element) => element.title == value);
     update();
   }
 
@@ -73,10 +82,11 @@ class FilterController extends GetxController {
           for (var element in countryResponse.records) {
             allCountryList.add(element);
             countryList.add(element.name ?? '');
-            if (element.id == '101') {
-              selectedCountry = element;
-              getState();
-            }
+            getState();
+            // if (element.id == '101') {
+            //   selectedCountry = element;
+            //   getState();
+            // }
           }
         }
       }
@@ -132,14 +142,36 @@ class FilterController extends GetxController {
     update();
   }
 
+  Future<void> getCategory() async {
+    try {
+      final response =
+      await RestServices.instance.getRestCall(endpoint: RestConstants.instance.getCategory);
+      if (response != null && response.isNotEmpty) {
+        Map<String, dynamic> responseMap = jsonDecode(response);
+        if (responseMap.containsKey('message') && responseMap['message'].toString().contains('found')) {
+          CategoryResponse categoryResponse = categoryResponseFromJson(response);
+          allCategoryList.clear();
+          categoryList.clear();
+          for (var element in categoryResponse.records!) {
+            allCategoryList.add(element);
+            categoryList.add(element.title ?? '');
+          }
+        }
+      }
+    } on SocketException catch (e) {
+      logs('Socket exception in getState --> ${e.message}');
+    }
+    update();
+  }
+
   void applyFilter() {
     if (ValidationUtils.validateEmptyController(jobTypeController)) {
       jobTypeError = 'Please enter job type';
     } else {
       jobTypeError = '';
     }
-    logs('selectedJobFiled --> $selectedJobFiled');
-    if (selectedJobFiled == null) {
+    logs('selectedJobFiled --> $selectedCategory');
+    /*if (categoryList.isEmpty || selectedCategory == null) {
       jobFiledError = 'Please select job filled';
     } else {
       jobFiledError = '';
@@ -158,12 +190,44 @@ class FilterController extends GetxController {
       cityError = 'Please select city';
     } else {
       cityError = '';
-    }
+    }*/
     update();
     if (jobTypeError.isEmpty && countyError.isEmpty && stateError.isEmpty && cityError.isEmpty) {
-      'Filter apply'.showSuccess();
-      disposeValue();
+      getJobs();
     }
+  }
+
+  Future<void> getJobs() async {
+    try {
+      showLoader(true);
+      final String? response = await RestServices.instance.postRestCall(
+        endpoint: RestConstants.instance.getJobs,
+        body: {
+          'search': jobTypeController.text.trim().toString(),
+          'category': selectedCategory != null ? selectedCategory!.title : '',
+          'country': selectedCountry != null ? selectedCountry!.name : '',
+          'state': selectedState != null ? selectedState!.name : '',
+          'city': selectedCity != null ? selectedCity!.name : ''
+        },
+      );
+      if (response != null && response.isNotEmpty) {
+        Map<String, dynamic> responseMap = jsonDecode(response);
+        if (responseMap.containsKey('status') && responseMap['status']) {
+          getJobResponse = getJobResponseFromJson(response);
+
+          if(getJobResponse!.jobs!.isNotEmpty) {
+            'Filter apply'.showSuccess();
+            // disposeValue();
+            gotoFilterList(getJobResponse!.jobs!);
+          } else {
+            'No records found.'.showError();
+          }
+        }
+      }
+    } on SocketException catch (e) {
+      logs('Catch exception in registerUser --> ${e.message}');
+    }
+    showLoader(false);
   }
 
   disposeValue() {
@@ -174,9 +238,15 @@ class FilterController extends GetxController {
     selectedState = null;
     selectedCity = null;
     selectedCountry = null;
-    selectedJobFiled = null;
+    selectedCategory = null;
     countryList.clear();
     stateList.clear();
     cityList.clear();
   }
+
+  showLoader(bool value){
+    isLoading = value;
+    update();
+  }
+
 }

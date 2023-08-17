@@ -50,3 +50,11 @@ gotoProfile(){
 gotoJobDetails(Job job){
   Get.toNamed(RouteHelper.getJobDetailsRoute(),arguments: {'Job':job});
 }
+
+gotoFilterList(List<Job>? jobList){
+  Get.toNamed(RouteHelper.getFilterListRoute(), arguments: {'Job':jobList});
+}
+
+gotoChangePassword(){
+  Get.toNamed(RouteHelper.getChangePasswordRoute());
+}

@@ -22,7 +22,6 @@ class HomeController extends GetxController{
         Map<String, dynamic> responseMap = jsonDecode(response);
         if (responseMap.containsKey('status') && responseMap['status']) {
           getJobResponse = getJobResponseFromJson(response);
-          logs("Response ==> $responseMap");
         }
       }
     } on SocketException catch (e) {

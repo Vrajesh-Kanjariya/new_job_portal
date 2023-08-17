@@ -56,11 +56,11 @@ class SignInController extends GetxController {
       if (response != null && response.isNotEmpty) {
         Map<String, dynamic> responseMap = jsonDecode(response);
         if (responseMap.containsKey('status') && responseMap['status']) {
+          var signInResponse = signInResponseFromJson(response);
           SharedPrefService.instance.setPrefBoolValue(SharedPrefService.instance.isAuthenticateUser, true);
           SharedPrefService.instance.setPrefStringValue(SharedPrefService.instance.authenticationToken, responseMap['token']);
-          SharedPrefService.instance.setPrefStringValue(SharedPrefService.instance.userDataKey, jsonEncode(responseMap['userdata']));
-          logs("Json Encoded Value --> ${jsonEncode(responseMap['userdata'])}");
-          userdata = responseMap['userdata'];
+          SharedPrefService.instance.setPrefStringValue(SharedPrefService.instance.userDataKey, jsonEncode(response));
+          signInData = signInResponse;
           responseMap['message'].toString().showSuccess();
           emailController.clear();
           passwordController.clear();

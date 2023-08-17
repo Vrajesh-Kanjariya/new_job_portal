@@ -31,4 +31,5 @@ class ColorConstant {
   static const Color blueText = Color(0xFF738AE6);
   static const Color appLightBlue = Color(0xFFe5f5ff);
   static const Color appBlue = Color(0xFF4fa7e1);
+  static const Color whiteBg = Color(0xFFFAFAFA);
 }

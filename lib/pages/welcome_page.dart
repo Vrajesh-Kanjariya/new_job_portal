@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:new_job_portal/routes/app_navigation.dart';
 import 'package:new_job_portal/utils/utils.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../../constant/image_constant.dart';
-import '../../constant/string_constant.dart';
-import '../../controller/welcome_controller.dart';
-import '../../widgets/app_elevated_button.dart';
-import '../../widgets/app_image_assets.dart';
-import '../../widgets/app_text.dart';
+import '../constant/image_constant.dart';
+import '../constant/string_constant.dart';
+import '../controller/welcome_controller.dart';
+import '../widgets/app_elevated_button.dart';
+import '../widgets/app_image_assets.dart';
+import '../widgets/app_text.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});

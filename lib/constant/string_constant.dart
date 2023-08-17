@@ -26,6 +26,8 @@ class StringConstant {
   static const String enterEmail = 'Enter email';
   static const String enterPhoneNumber = 'Enter phone number';
   static const String enterPassword = 'Enter password';
+  static const String enterOldPassword = 'Enter old password';
+  static const String enterNewPassword = 'Enter new password';
   static const String enterName = 'Enter name';
   static const String enterPhone = 'Enter phone';
   static const String enterCPassword = 'Enter confirm password';
@@ -58,6 +60,8 @@ class StringConstant {
   static const String oldPassword = 'Old Password';
   static const String newPassword = 'New Password';
   static const String updatePassword = 'Update Password';
+  static const String newCredential = 'New Credentials';
+  static const String passString = 'Your identify has been verified \n Set your new password';
 
   //    ======================= Welcome Screen =======================    //
   static const String welcomeScr = 'Welcome!';
@@ -124,9 +128,9 @@ class StringConstant {
   static const String selectState = 'Select your state';
   static const String save = 'save';
   static const String edit = 'edit';
-  static const String update = 'update';
-  static const String cancel = 'cancel';
-  static const String discard = 'discard';
+  static const String update = 'Update';
+  static const String cancel = 'Cancel';
+  static const String discard = 'Discard';
 
   //    ======================= Other Edit Screen =======================   //
   static const String jobAppBar = 'Job Information';

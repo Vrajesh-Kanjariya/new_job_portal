@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
@@ -28,7 +29,10 @@ class RestConstants {
   final String getCountry = 'getcountry';
   final String getState = 'getstate';
   final String getCity = 'getcity';
+  final String getCategory = 'getcategory';
   final String saveUnSaveJob = 'saveJob';
+  final String getSavedJobs = 'getSavedJobs';
+  final String changePassword = 'change_password';
 }
 
 class RestServices {
@@ -51,10 +55,10 @@ class RestServices {
   void showRequestAndResponseLogs(http.Response? response, Map<String, Object> requestData) {
     logs('•••••••••• Network logs ••••••••••');
     logs('Request url --> ${response!.request!.url}');
-    logs('Request headers --> $requestData');
+    log('Request headers --> $requestData');
     logs('Status code --> ${response.statusCode}');
     logs('Response headers --> ${response.headers}');
-    logs('Response body --> ${response.body}');
+    log('Response body --> ${response.body}');
     logs('••••••••••••••••••••••••••••••••••');
   }
 

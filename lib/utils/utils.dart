@@ -14,7 +14,7 @@ const String aboutTemple = 'About Temple';
 const String clock = 'Clock';
 const String countryCode = '91';
 bool isAuthUser = false;
-Userdata? userdata;
+SignInResponse? signInData;
 
 
 void logs(String message) {

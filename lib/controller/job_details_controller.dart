@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:get/get.dart';
+import 'package:new_job_portal/utils/string_extensions.dart';
 
 import '../model/get_job_response.dart';
 import '../services/rest_service.dart';
@@ -12,6 +13,7 @@ class JobDetailsController extends GetxController {
   int selectedIndex = 0;
   bool isReadMore = false;
   bool isLoading = false;
+  bool isFavourite = false;
   Job? job;
   List<Map<String, dynamic>> jobDetailsList = [
     {'title': 'Description'},
@@ -28,7 +30,6 @@ class JobDetailsController extends GetxController {
 
   getArguments() async {
     job = Get.arguments['Job'];
-    logs("job-- > ${job!.jobType}");
   }
 
   readMore() {
@@ -42,20 +43,20 @@ class JobDetailsController extends GetxController {
   }
 
   Future<void> saveUnSaveJobs(String? jobId) async {
-    logs("Job Id --> $jobId");
     try {
       showLoader(true);
       final String? response = await RestServices.instance.postRestCall(
         endpoint: RestConstants.instance.saveUnSaveJob,
         body: {
-          'candidate_id': userdata!.candidateId,
+          'candidate_id': signInData!.userdata!.candidateId,
           'job_id':jobId
         },
       );
       if (response != null && response.isNotEmpty) {
         Map<String, dynamic> responseMap = jsonDecode(response);
         if (responseMap.containsKey('status') && responseMap['status']) {
-          logs("Response ==> $responseMap");
+          responseMap['message'].toString().showSuccess();
+          logs("Response save jobs ==> $responseMap");
         }
       }
     } on SocketException catch (e) {

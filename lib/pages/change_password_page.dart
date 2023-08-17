@@ -1,38 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:new_job_portal/controller/change_password_controller.dart';
 import 'package:new_job_portal/utils/utils.dart';
 import 'package:new_job_portal/widgets/app_loader.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../constant/color_constant.dart';
-import '../../constant/image_constant.dart';
-import '../../constant/string_constant.dart';
-import '../../controller/sign_in_controller.dart';
-import '../../routes/app_navigation.dart';
-import '../../widgets/app_elevated_button.dart';
-import '../../widgets/app_image_assets.dart';
-import '../../widgets/app_text.dart';
-import '../../widgets/app_text_form_field.dart';
+import '../constant/color_constant.dart';
+import '../constant/string_constant.dart';
+import '../widgets/app_app_bar.dart';
+import '../widgets/app_elevated_button.dart';
+import '../widgets/app_text.dart';
+import '../widgets/app_text_form_field.dart';
 
-class SignInPage extends StatelessWidget {
-  const SignInPage({super.key});
+class ChangePasswordPage extends StatelessWidget {
+  const ChangePasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     logs('Current screen --> $runtimeType');
-    return GetBuilder<SignInController>(
-      init: SignInController(),
-      builder: (SignInController controller) => Scaffold(body: Stack(
+    return GetBuilder<ChangePasswordController>(
+      init: ChangePasswordController(),
+      builder: (ChangePasswordController controller) => Scaffold(
+          body: Stack(
         children: [
-          _signInBody(context, controller),
+          _changePasswordBody(context, controller),
           loader(controller.isLoading),
         ],
       )),
     );
   }
 
-  _signInBody(BuildContext context, SignInController controller) {
+  _changePasswordBody(BuildContext context, ChangePasswordController controller) {
     return Stack(
       fit: StackFit.loose,
       children: [
@@ -46,49 +45,13 @@ class SignInPage extends StatelessWidget {
           ),
           child: Column(
             children: [
+              SizedBox(height: 8.px),
               SafeArea(
-                child: Container(
-                  margin: EdgeInsets.only(top: 16.px),
-                  padding: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () => gotoWelcome(),
-                        child: Padding(
-                          padding: EdgeInsets.all(8.px),
-                          child: AppImageAsset(
-                            image: ImageConstant.backIcon,
-                            height: 20.px,
-                            width: 20.px,
-                            color: ColorConstant.appWhite,
-                          ),
-                        ),
-                      ),
-                      const Spacer(),
-                      AppText(
-                        text: StringConstant.dontAccount,
-                        fontColor: ColorConstant.appWhite,
-                        fontSize: 12.px,
-                        fontWeight: FontWeight.w300,
-                      ),
-                      SizedBox(width: 10.px),
-                      GestureDetector(
-                        onTap: () => gotoSignUp(),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10.px, vertical: 8.px),
-                          decoration:
-                              BoxDecoration(borderRadius: BorderRadius.circular(8.px), color: ColorConstant.lightPurple),
-                          child: AppText(
-                            text: StringConstant.getStarted,
-                            fontColor: ColorConstant.appWhite,
-                            fontSize: 12.px,
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10.px),
-                    ],
-                  ),
+                child: AppAppBar(
+                  appbarTitle: 'Change Password'.toUpperCase(),
+                  titleFontSize: 14,
+                  leftIconColor: Colors.white,
+                  appBarColor: ColorConstant.transparent,
                 ),
               ),
               Container(
@@ -114,7 +77,8 @@ class SignInPage extends StatelessWidget {
                   margin: EdgeInsets.symmetric(horizontal: 20.px),
                   height: MediaQuery.of(context).size.height * 0.012,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(25.px), topRight: Radius.circular(25.px)),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25.px), topRight: Radius.circular(25.px)),
                     gradient: const LinearGradient(
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
@@ -129,7 +93,8 @@ class SignInPage extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.688,
                   decoration: BoxDecoration(
                     color: ColorConstant.appWhite,
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(20.px), topRight: Radius.circular(20.px)),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.px), topRight: Radius.circular(20.px)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,7 +104,7 @@ class SignInPage extends StatelessWidget {
                       Align(
                         alignment: Alignment.center,
                         child: AppText(
-                          text: StringConstant.welcomeBack,
+                          text: StringConstant.newCredential,
                           fontSize: 26.px,
                           fontWeight: FontWeight.w600,
                           textAlign: TextAlign.center,
@@ -149,7 +114,7 @@ class SignInPage extends StatelessWidget {
                       Align(
                         alignment: Alignment.center,
                         child: AppText(
-                          text: StringConstant.enterBelowDetails,
+                          text: StringConstant.passString,
                           fontSize: 14.px,
                           fontColor: ColorConstant.textGrey,
                           textAlign: TextAlign.center,
@@ -160,29 +125,8 @@ class SignInPage extends StatelessWidget {
                         padding: EdgeInsets.only(top: 6.px, left: 20.px, right: 20.px),
                         child: AppTextFormField(
                           textAlign: TextAlign.start,
-                          controller: controller.emailController,
-                          hint: StringConstant.enterEmail,
-                          fontSize: 15.px,
-                          fillColor: ColorConstant.appWhite,
-                          borderColor: ColorConstant.appgrey,
-                          borderWidth: 2.px,
-                          autoFocus: false,
-                          hintFontSize: 14.px,
-                          fontColor: ColorConstant.appBlack,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(50),
-                          ],
-                          keyboardType: TextInputType.emailAddress,
-                          errorText: controller.emailError,
-                        ),
-                      ),
-                      SizedBox(height: 16.px),
-                      Padding(
-                        padding: EdgeInsets.only(top: 6.px, left: 20.px, right: 20.px),
-                        child: AppTextFormField(
-                          textAlign: TextAlign.start,
-                          controller: controller.passwordController,
-                          hint: StringConstant.enterPassword,
+                          controller: controller.oldPasswordController,
+                          hint: StringConstant.enterOldPassword,
                           fontSize: 15.px,
                           fillColor: ColorConstant.appWhite,
                           borderColor: ColorConstant.appgrey,
@@ -209,25 +153,82 @@ class SignInPage extends StatelessWidget {
                           errorText: controller.passwordError,
                         ),
                       ),
+                      SizedBox(height: 16.px),
+                      Padding(
+                        padding: EdgeInsets.only(top: 6.px, left: 20.px, right: 20.px),
+                        child: AppTextFormField(
+                          textAlign: TextAlign.start,
+                          controller: controller.newPasswordController,
+                          hint: StringConstant.enterNewPassword,
+                          fontSize: 15.px,
+                          fillColor: ColorConstant.appWhite,
+                          borderColor: ColorConstant.appgrey,
+                          borderWidth: 2.px,
+                          autoFocus: false,
+                          isObscureText: controller.isPasswordVisible,
+                          hintFontSize: 14.px,
+                          suffixIcon: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16.px),
+                            child: GestureDetector(
+                              onTap: () => controller.newPasswordHideShow(),
+                              child: Icon(
+                                controller.isNewPasswordVisible
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                                size: 25.px,
+                                color: ColorConstant.appgrey,
+                              ),
+                            ),
+                          ),
+                          fontColor: ColorConstant.appBlack,
+                          inputFormatters: [LengthLimitingTextInputFormatter(15)],
+                          keyboardType: TextInputType.text,
+                          errorText: controller.newPasswordError,
+                        ),
+                      ),
+                      SizedBox(height: 16.px),
+                      Padding(
+                        padding: EdgeInsets.only(top: 6.px, left: 20.px, right: 20.px),
+                        child: AppTextFormField(
+                          textAlign: TextAlign.start,
+                          controller: controller.cPasswordController,
+                          hint: StringConstant.enterCPassword,
+                          fontSize: 15.px,
+                          fillColor: ColorConstant.appWhite,
+                          borderColor: ColorConstant.appgrey,
+                          borderWidth: 2.px,
+                          autoFocus: false,
+                          isObscureText: controller.isPasswordVisible,
+                          hintFontSize: 14.px,
+                          suffixIcon: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16.px),
+                            child: GestureDetector(
+                              onTap: () => controller.cPasswordHideShow(),
+                              child: Icon(
+                                controller.isCPasswordVisible
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                                size: 25.px,
+                                color: ColorConstant.appgrey,
+                              ),
+                            ),
+                          ),
+                          fontColor: ColorConstant.appBlack,
+                          inputFormatters: [LengthLimitingTextInputFormatter(15)],
+                          keyboardType: TextInputType.text,
+                          errorText: controller.cPasswordError,
+                        ),
+                      ),
                       SizedBox(height: 36.px),
                       InkWell(
                         onTap: () => controller.checkValidation(),
-                        child: AppElevatedButton(height: 50.px, text: StringConstant.signIn, margin: 20.px),
-                      ),
-                      SizedBox(height: 20.px),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: AppText(
-                            text: StringConstant.forgotPass,
-                            fontSize: 14.px,
-                            fontWeight: FontWeight.w600,
-                            fontColor: ColorConstant.textGrey,
-                            textAlign: TextAlign.center,
-                          ),
+                        child: AppElevatedButton(
+                          height: 50.px,
+                          text: StringConstant.update,
+                          margin: 20.px,
                         ),
                       ),
+                      SizedBox(height: 20.px),
                     ],
                   ),
                 ),

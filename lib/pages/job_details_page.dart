@@ -40,30 +40,31 @@ class JobDetailsPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const AppImageAsset(image: ImageConstant.bookmark),
+                    const AppImageAsset(image: ImageConstant.mapMarker),
                     const SizedBox(width: 5),
                     AppText(
-                      text: 'New York OnSite',
+                      text: '${jobDetailsController.job!.address}',
                       textAlign: TextAlign.center,
                       fontSize: 12,
+                      maxLines: 2,
                       fontWeight: FontWeight.w600,
                       fontColor: ColorConstant.appBlack.withOpacity(0.5),
                     ),
-                    Container(
-                      height: 35,
-                      width: 60,
-                      margin: const EdgeInsets.only(left: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: ColorConstant.appLightBlue,
-                      ),
-                      alignment: Alignment.center,
-                      child: const AppText(
-                        text: 'Senior',
-                        fontColor: ColorConstant.appBlue,
-                        fontSize: 11,
-                      ),
-                    ),
+                    // Container(
+                    //   height: 35,
+                    //   width: 60,
+                    //   margin: const EdgeInsets.only(left: 10),
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(15),
+                    //     color: ColorConstant.appLightBlue,
+                    //   ),
+                    //   alignment: Alignment.center,
+                    //   child: const AppText(
+                    //     text: 'Senior',
+                    //     fontColor: ColorConstant.appBlue,
+                    //     fontSize: 11,
+                    //   ),
+                    // ),
                   ],
                 ),
                 Container(
@@ -127,7 +128,7 @@ class JobDetailsPage extends StatelessWidget {
       appbarTitle: 'Job detail'.toUpperCase(),
       titleFontSize: 14,
       isRightIcon: true,
-      rightIcon: ImageConstant.bookmark,
+      rightIcon: jobDetailsController.isFavourite ? ImageConstant.saveFill : ImageConstant.save,
       rightIconTap: () => jobDetailsController.saveUnSaveJobs(jobDetailsController.job!.jobId),
     );
   }

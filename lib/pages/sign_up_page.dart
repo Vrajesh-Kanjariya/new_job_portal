@@ -5,15 +5,15 @@ import 'package:new_job_portal/utils/utils.dart';
 import 'package:new_job_portal/widgets/app_loader.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../constant/color_constant.dart';
-import '../../constant/image_constant.dart';
-import '../../constant/string_constant.dart';
-import '../../controller/sign_up_controller.dart';
-import '../../routes/app_navigation.dart';
-import '../../widgets/app_elevated_button.dart';
-import '../../widgets/app_image_assets.dart';
-import '../../widgets/app_text.dart';
-import '../../widgets/app_text_form_field.dart';
+import '../constant/color_constant.dart';
+import '../constant/image_constant.dart';
+import '../constant/string_constant.dart';
+import '../controller/sign_up_controller.dart';
+import '../routes/app_navigation.dart';
+import '../widgets/app_elevated_button.dart';
+import '../widgets/app_image_assets.dart';
+import '../widgets/app_text.dart';
+import '../widgets/app_text_form_field.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
