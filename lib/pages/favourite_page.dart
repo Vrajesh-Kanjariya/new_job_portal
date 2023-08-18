@@ -77,7 +77,8 @@ class FavouritePage extends StatelessWidget {
                             Row(
                               children: [
                                 AppImageAsset(
-                                  image: ImageConstant.userAvatar,
+                                  image: '${ImageConstant.baseUrl}${controller.saveJobListResponse!.savedJobs![index].company!.first.logo}',
+                                  isWebImage: true,
                                   height: 60.px,
                                   width: 60.px,
                                 ),
@@ -92,11 +93,14 @@ class FavouritePage extends StatelessWidget {
                                       AppText(
                                         text:
                                             controller.saveJobListResponse!.savedJobs![index].title,
-                                        fontSize: 18.px,
+                                        fontSize: 16.px,
                                         fontWeight: FontWeight.w600,
                                         maxLines: 2,
                                         fontColor: ColorConstant.appBlack,
                                         overflow: TextOverflow.ellipsis,
+                                      ),
+                                      SizedBox(
+                                        height: 10.px,
                                       ),
                                       AppText(
                                         text: controller.saveJobListResponse!.savedJobs![index]

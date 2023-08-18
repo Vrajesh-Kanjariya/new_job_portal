@@ -17,6 +17,7 @@ class ImageConstant {
   //     ======================= Icons =======================     //
   static const logo = '${iconPath}logo.png';
   static const backIcon = '${iconPath}back.png';
+  static const forward = '${iconPath}forward.png';
   static const email = '${iconPath}email.png';
   static const expandArrow = '${iconPath}expand_arrow.png';
   static const password = '${iconPath}password.png';
