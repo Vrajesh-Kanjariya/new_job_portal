@@ -19,7 +19,7 @@ class ProfilePage extends StatelessWidget {
     return GetBuilder<ProfileController>(
       init: ProfileController(),
       builder: (ProfileController controller) {
-        return Scaffold(appBar: appBar(), body: _profileBody(),
+        return Scaffold(appBar: appBar(), body: _profileBody(controller),
         backgroundColor: ColorConstant.whiteBg,);
       },
     );
@@ -36,14 +36,14 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  _profileBody() {
+  _profileBody(ProfileController controller) {
     return SafeArea(
       child: ListView(
         primary: false,
         physics: const NeverScrollableScrollPhysics(),
         children: [
           buildProfileView(),
-          buildProfileDetailsView(),
+          buildProfileDetailsView(controller),
         ],
       ),
     );
@@ -93,7 +93,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  buildProfileDetailsView() {
+  buildProfileDetailsView(ProfileController controller) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -198,21 +198,24 @@ class ProfilePage extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: [
             listItemView(ImageConstant.mapMarker,'Saved Job'),
-            Card(
-              elevation: 2.0,
-              margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
-                decoration:
-                    BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
-                child: Row(
-                  children: [
-                    Icon(Icons.tv, size: 24.px),
-                    SizedBox(width: 12.px),
-                    const AppText(text: 'Saved Job'),
-                    const Spacer(),
-                    Icon(Icons.arrow_forward_ios_outlined, size: 24.px),
-                  ],
+            GestureDetector(
+              onTap: () => gotoFavourite(),
+              child: Card(
+                elevation: 2.0,
+                margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
+                  decoration:
+                      BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
+                  child: Row(
+                    children: [
+                      Icon(Icons.tv, size: 24.px),
+                      SizedBox(width: 12.px),
+                      const AppText(text: 'Saved Job'),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios_outlined, size: 24.px),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -279,23 +282,26 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
-              padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
-              decoration:
-                  BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
-              child: Row(
-                children: [
-                  AppImageAsset(
-                    image: ImageConstant.mapMarker,
-                    width: 24.px,
-                    height: 24.px,
-                  ),
-                  SizedBox(width: 12.px),
-                  const AppText(text: 'Delete Account'),
-                  const Spacer(),
-                  Icon(Icons.arrow_forward_ios_outlined, size: 24.px),
-                ],
+            GestureDetector(
+              onTap: () => controller.deleteAccount(),
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 10.px, vertical: 10.px),
+                padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
+                decoration:
+                    BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.px)),
+                child: Row(
+                  children: [
+                    AppImageAsset(
+                      image: ImageConstant.mapMarker,
+                      width: 24.px,
+                      height: 24.px,
+                    ),
+                    SizedBox(width: 12.px),
+                    const AppText(text: 'Delete Account'),
+                    const Spacer(),
+                    Icon(Icons.arrow_forward_ios_outlined, size: 24.px),
+                  ],
+                ),
               ),
             ),
             Container(

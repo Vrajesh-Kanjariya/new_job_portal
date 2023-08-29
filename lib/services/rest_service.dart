@@ -33,6 +33,7 @@ class RestConstants {
   final String saveUnSaveJob = 'saveJob';
   final String getSavedJobs = 'getSavedJobs';
   final String changePassword = 'change_password';
+  final String deleteAccount = 'delete_account';
 }
 
 class RestServices {
